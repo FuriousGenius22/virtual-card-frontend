@@ -1,9 +1,31 @@
-import React from 'react'
+import { Button, Card, CardBody, CardFooter, CardHeader, Chip, CircularProgress, Divider, Link } from '@nextui-org/react';
+import type {FC} from 'react';
+import React from 'react';
 
-const Dashboard = () => {
+interface Props {}
+
+const Dashboard: FC<Props> = () => {
+
+  const [value, setValue] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      setValue((v) => (v >= 100 ? 0 : v + 10));
+    }, 500);
+
+    return () => clearInterval(interval);
+  }, []);
   return (
-    <div>Dashboard</div>
+    <CircularProgress
+      aria-label="Loading..."
+      color="warning"
+      showValueLabel={true}
+      size="lg"
+      value={value}
+    />
   )
-}
 
-export default Dashboard
+};
+//This is for git hub!
+
+export default Dashboard;
