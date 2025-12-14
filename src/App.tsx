@@ -4,6 +4,7 @@ import Accounts from "./pages/Accounts";
 import Cards from "./pages/Cards";
 import LandingPage from "./pages/LandingPage";
 import SignIn from "./pages/SignIn";
+import Dashboard from "./pages/Dashboard";
 
 const App = () => {
   return (
@@ -14,6 +15,8 @@ const App = () => {
           <Route path="/accounts" element={<Accounts />} />
           <Route path="/cards" element={<Cards />} />
           <Route path="/signin" element={<SignIn />} />
+          
+          <Route path="/dashboard" element = {<Dashboard/>}/>
         </Routes>
       </BrowserRouter>
     </div>
