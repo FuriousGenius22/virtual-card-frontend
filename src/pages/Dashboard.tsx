@@ -1,6 +1,7 @@
 import { Button, Card, CardBody, CardFooter, CardHeader, Chip, CircularProgress, Divider, Link } from '@nextui-org/react';
 import type {FC} from 'react';
 import React from 'react';
+import PageMeta from '../components/common/PageMeta';
 
 interface Props {}
 
@@ -16,13 +17,20 @@ const Dashboard: FC<Props> = () => {
     return () => clearInterval(interval);
   }, []);
   return (
-    <CircularProgress
-      aria-label="Loading..."
-      color="warning"
-      showValueLabel={true}
-      size="lg"
-      value={value}
-    />
+    <>
+      <PageMeta
+        title='This is dashboard page'
+        description='Welcome to our page!'
+      />
+      <CircularProgress
+        aria-label="Loading..."
+        color="warning"
+        showValueLabel={true}
+        size="lg"
+        value={value}
+      />
+      <h1>This is dashboard page!</h1>
+    </>
   )
 
 };
