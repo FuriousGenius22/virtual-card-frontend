@@ -36,11 +36,11 @@ const DATA = [
 
 const Cards: React.FC = () => {
   return (
-    <section className="bg-[#f5f6fb] py-20">
-      <h2 className="text-center font-extrabold text-[clamp(28px,4vw,48px)]">
+    <section className="bg-[#f5f6fb] py-20 ">
+      <h2 className="text-center font-sans font-black text-[clamp(28px,4vw,48px)]">
         RATES BECOME MORE FAVORABLE <br /> WITH EACH GRADE
       </h2>
-      <p className="mt-3 text-center text-[clamp(16px,2vw,22px)]">
+      <p className="mt-3 text-center text-[clamp(16px,2vw,15px)]">
         Spend more — pay less
       </p>
 
