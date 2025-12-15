@@ -1,6 +1,6 @@
-import HeroImage from "../../assets/hero.jpg";
+import UserImage from "../../assets/user.jpg";
 
-const Hero: React.FC = () => {
+const User: React.FC = () => {
   return (
     <section
       className="
@@ -15,7 +15,7 @@ const Hero: React.FC = () => {
         md:bg-cover md:bg-center
       "
       style={{
-        backgroundImage: `url(${HeroImage})`,
+        backgroundImage: `url(${UserImage})`,
       }}
     >
       {/* Overlay content */}
@@ -42,7 +42,7 @@ const Hero: React.FC = () => {
             mt-0
           "
         >
-          VIRTUAL CARDS <br /> FOR ADVERTISING
+          USER-FRIENDLY APP
         </h1>
 
         {/* Subtitle */}
@@ -96,4 +96,4 @@ const Hero: React.FC = () => {
   );
 };
 
-export default Hero;
+export default User;
