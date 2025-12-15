@@ -1,13 +1,12 @@
+import React from 'react'
+import Footer from '../footer/Footer'
 
-
-export default function Footer() {
+const Footeri = () => {
   return (
-    <footer className="footer">
-      <div className="footer-links">
-        <a href="/terms">Terms of Service</a>
-        <a href="/privacy">Privacy Policy</a>
-      </div>
-      <p>© 2025 Digital Waves LTD</p>
-    </footer>
-  );
+    <div>
+      <Footer/>
+    </div>
+  )
 }
+
+export default Footeri
