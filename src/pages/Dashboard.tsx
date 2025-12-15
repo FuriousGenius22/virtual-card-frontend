@@ -22,18 +22,11 @@ const Dashboard: FC<Props> = () => {
         title='This is dashboard page'
         description='Welcome to our page!'
       />
-      <CircularProgress
-        aria-label="Loading..."
-        color="warning"
-        showValueLabel={true}
-        size="lg"
-        value={value}
-      />
+      
       <h1>This is dashboard page!</h1>
     </>
   )
 
 };
-//This is for git hub!
 
 export default Dashboard;
