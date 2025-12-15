@@ -1,4 +1,5 @@
 import UserImage from "../../assets/user.jpg";
+import Buttons from "../common/Buttons";
 
 const User: React.FC = () => {
   return (
@@ -8,8 +9,8 @@ const User: React.FC = () => {
         min-h-[70vh]
         md:min-h-[750px]
         flex
-        py-[15vh]
-        justify-center
+        py-[20vh]
+        
         md:justify-start
         bg-black
         md:bg-cover md:bg-center
@@ -24,8 +25,9 @@ const User: React.FC = () => {
           text-white
           text-center
           md:text-left
-          px-6
+          px-8
           md:px-20
+          ml-[20vh]
           lg:px-[130px]
           animate-hero-float
         "
@@ -38,7 +40,7 @@ const User: React.FC = () => {
             text-3xl
             sm:text-4xl
             md:text-6xl
-            lg:text-[50px]
+            lg:text-[45px]
             mt-0
           "
         >
@@ -52,35 +54,17 @@ const User: React.FC = () => {
           
             text-base
             sm:text-lg
-            md:text-2xl
-            font-bold
-            lg:text-[20px]
+            md:text-1xl
+            font-semibold
+            lg:text-[16px]
           "
         >
-          Reliable. Affordable. Convenient
+          Transaction notifications, 3DS verification codes, account,<br></br> card and team management
         </p>
 
-        {/* CTA */}
-        <div
-          className="
-            mt-5
-            mx-auto
-            md:mx-0
-            bg-white
-            rounded-full
-            w-[150px]
-            h-[40px]
-            text-black
-            font-bold
-            flex
-            justify-center
-            items-center
-            cursor-pointer
-            hover:bg-gray-200
-            transition
-          "
-        >
-          Issue a Card
+        {/* Button Group */}
+        <div className="flex justify-start">
+          <Buttons />
         </div>
       </div>
 
