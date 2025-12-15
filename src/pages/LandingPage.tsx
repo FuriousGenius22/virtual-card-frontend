@@ -4,6 +4,7 @@ import Footer from "../components/layout/Footer";
 import Container from "../components/layout/Container.tsx";
 import Cards from "../components/Landing/Cards.tsx";
 import User from "../components/Landing/User.tsx";
+import SupportSection from "../components/support/index.tsx";
 
 export default function LandingPage() {
   return (
@@ -13,6 +14,7 @@ export default function LandingPage() {
         <Hero />
         <Cards />
         <User />
+        <SupportSection />
       </Container>
       <Footer />
     </>
