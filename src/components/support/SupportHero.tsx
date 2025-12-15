@@ -8,17 +8,31 @@ const SupportHero: React.FC = () => {
       className="
         relative
         w-full
-        min-h-[700px]
+        min-h-[800px]
         flex
-        items-center
         justify-center
         overflow-hidden
-        bg-[radial-gradient(ellipse_at_center,_rgba(255,200,150,0.35),_rgba(0,0,0,0.85))]
+        bg-center
+        bg-no-repeat
+        bg-cover
       "
+      style={{
+        backgroundImage: `url(${PhoneImage})`,
+      }}
     >
+      {/* Dark gradient overlay (for readability) */}
+      <div className="
+        absolute inset-0
+        bg-gradient-to-b
+        from-black/60
+        via-black/40
+        to-black/80
+        z-0
+      " />
+
       {/* Content */}
       <div className="relative z-10 text-center text-white px-6">
-        <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight">
+        <h2 className="text-4xl md:text-5xl font-extrabold tracking-tight mt-[10vh]">
           24/7 SUPPORT
         </h2>
 
@@ -32,31 +46,21 @@ const SupportHero: React.FC = () => {
       </div>
 
       {/* Giant Numbers */}
-      <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-        <div className="relative flex items-center gap-6">
-          <span className="text-[220px] md:text-[280px] font-extrabold text-white/90 leading-none">
+      <div className="
+        absolute inset-0
+        flex items-center justify-center
+        pointer-events-none
+        z-10
+      ">
+        <div className="flex items-center gap-6">
+          <span className="text-[220px] md:text-[280px] font-extrabold text-white/90 leading-none mr-[5vw]">
             24
           </span>
-
-          {/* Phone */}
-          <img
-            src={PhoneImage}
-            alt="Phone"
-            className="
-              w-[140px] md:w-[180px]
-              rotate-12
-              drop-shadow-[0_30px_60px_rgba(0,0,0,0.6)]
-            "
-          />
-
           <span className="text-[220px] md:text-[280px] font-extrabold text-white/90 leading-none">
             7
           </span>
         </div>
       </div>
-
-      {/* Vignette */}
-      <div className="absolute inset-0 bg-black/40 pointer-events-none" />
     </section>
   );
 };
