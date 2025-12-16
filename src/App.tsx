@@ -7,11 +7,13 @@ import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/OtherPage/NotFound";
 import AppLayout from "./components/layout/AppLayout";
 import Test from "./pages/Test";
+import { ScrollToTop } from "./components/common/ScrollToTop";
 
 const App = () => {
   return (
     <div>
       <BrowserRouter>
+        <ScrollToTop/>
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route element = {<AppLayout/>}>
