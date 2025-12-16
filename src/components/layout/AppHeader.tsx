@@ -3,6 +3,7 @@ import { Avatar, Switch, Image } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { useSidebar } from "../../context/SiderbarContext";
 import { Menu } from "lucide-react";
+import Profile from "../common/Profile";
 
 const AppHeader: FC = () => {
 
@@ -53,7 +54,7 @@ const AppHeader: FC = () => {
 
                 {/* RIGHT */}
                 <div className="flex items-center gap-4">
-                    <Avatar
+                    {/* <Avatar
                         isBordered
                         size="md"
                         icon={
@@ -64,7 +65,8 @@ const AppHeader: FC = () => {
                                 className="object-cover"
                             />
                         }
-                    />
+                    /> */}
+                    <Profile/>
                 </div>
             </div>
         </header>

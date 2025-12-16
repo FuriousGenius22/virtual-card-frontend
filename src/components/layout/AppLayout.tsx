@@ -7,7 +7,7 @@ const LayoutContent: React.FC = () => {
     const { isExpanded, isMobileOpen } = useSidebar();
 
     return (
-        <div className="flex flex-col min-h-screen bg-gray-50">
+        <div className="flex flex-col min-h-screen bg-white">
 
             <header className="sticky top-0 z-40 w-full bg-white border-b">
                 <AppHeader />
