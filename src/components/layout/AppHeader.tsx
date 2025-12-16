@@ -21,13 +21,22 @@ const AppHeader: FC = () => {
         >
             <div className="flex items-center justify-between h-16 px-4 lg:px-6">
                 {/* LEFT */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-7">
                     <button
                         onClick={handleToggle}
                         className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-white/10"
                     >
                         <Menu />
                     </button>
+                    <Link to="/dashboard">
+                        <Image
+                            src="./images/logo/logo.svg"
+                            fallbackSrc="/default-avatar.jpg"
+                            alt="User avatar"
+                            className="object-cover"
+                            sizes="lg"
+                        />                    
+                    </Link>
                 </div>
 
                 {/* CENTER */}
@@ -66,7 +75,7 @@ const AppHeader: FC = () => {
                             />
                         }
                     /> */}
-                    <Profile/>
+                    <Profile />
                 </div>
             </div>
         </header>
