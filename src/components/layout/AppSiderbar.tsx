@@ -27,7 +27,7 @@ const AppSiderbar: FC = () => {
         `}
       >
         <p className="flex items-center justify-center w-6 h-6">
-          <Icon className="w-5 h-5" />
+          <Icon className="w-10 h-10" />
         </p>
 
           <p className="text-sm whitespace-nowrap">
