@@ -6,7 +6,7 @@ import { useSidebar } from "../../context/SiderbarContext";
 const AppSiderbar: FC = () => {
   const { isExpanded } = useSidebar();
   const location = useLocation();
-
+  
   const navItem = (
     to: string,
     label: string,
@@ -32,6 +32,7 @@ const AppSiderbar: FC = () => {
 
           <p className="text-sm whitespace-nowrap">
             {label}
+            {isActive}
           </p>
       </Link>
     );
