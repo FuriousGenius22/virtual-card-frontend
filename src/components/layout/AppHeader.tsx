@@ -30,7 +30,7 @@ const AppHeader: FC = () => {
                     </button>
                     <Link to="/dashboard">
                         <Image
-                            src="./images/logo/logo.svg"
+                            src="./images/logo.svg"
                             fallbackSrc="/default-avatar.jpg"
                             alt="User avatar"
                             className="object-cover"

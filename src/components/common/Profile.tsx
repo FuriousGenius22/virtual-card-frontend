@@ -1,5 +1,4 @@
 import { Button, Dropdown, DropdownItem } from "flowbite-react";
-import { Icon } from "@iconify/react";
 import { Link } from "react-router-dom";
 import { BellPlus, LogOut, Send, Settings } from "lucide-react";
 

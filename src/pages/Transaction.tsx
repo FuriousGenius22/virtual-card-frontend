@@ -1,0 +1,58 @@
+import {useState, type FC} from 'react';
+import { Link, Outlet } from 'react-router-dom';
+import TrHistory from '../components/Transaction/TrHistory';
+
+interface Props {}
+
+const Transaction: FC<Props> = () => {
+
+    const [subTitle, setSubTitle] = useState<String>('Transaction history');
+    const [transactionHistory, setTransactionHistory] = useState<boolean>(true);
+    const [createStatement, setCreateStatement] = useState<boolean>(false);
+    const [readyStatement, setReadyStatement] = useState<boolean>(false);
+
+
+    const handleChange = (state:Number) =>{
+        if(state === 1){
+            setTransactionHistory(true);
+            setCreateStatement(false);
+            setReadyStatement(false);
+            setSubTitle('Transaction history');
+        }else if(state === 2){
+            setTransactionHistory(false);
+            setCreateStatement(true);
+            setReadyStatement(false);
+            setSubTitle('Create Statement');
+        }else if(state === 3){
+            setTransactionHistory(false);
+            setCreateStatement(false);
+            setReadyStatement(true);
+            setSubTitle('Ready Statements');
+        }
+    }
+
+return <>
+
+    {/* The first part! Search box! */}
+    <div className='flex flex-row flex-1 pl-[30px] mt-[28px] justify-between'>
+        <div>
+            <h1 className='text-4xl font-semibold'>{subTitle}</h1>
+        </div>
+        <div className='flex flex-row'>
+            <Link to = "/history"><button  className={`p-5 text-lg font-semibold text-gray-400 ${transactionHistory ? "border-b-blue-600 border-b-3" : ""}`} onClick={()=>handleChange(1)}>Transaction history</button></Link>
+            <Link to = "scheduled"><button  className={`p-5 text-lg font-semibold text-gray-400 ${createStatement ? "border-b-blue-600 border-b-3" : ""}`} onClick={()=>handleChange(2)}>Create Statement</button></Link>
+            <Link to = "reported"><button  className={`p-5 text-lg font-semibold text-gray-400 ${readyStatement ? "border-b-blue-600 border-b-3" : ""}`} onClick={()=>handleChange(3)}>Ready Statement</button></Link>
+        </div>
+    </div>
+
+    <hr className='w-full pt-0 mt-0 border-gray-200 border-1'></hr>
+
+    {/* The part we can see the result! */}
+    <div className=''>
+        {transactionHistory ? <TrHistory/> : <Outlet/>}
+    </div>
+</>
+
+};
+
+export default Transaction;
