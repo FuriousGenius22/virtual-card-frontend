@@ -11,7 +11,7 @@ const Transaction: FC<Props> = () => {
     const [createStatement, setCreateStatement] = useState<boolean>(false);
     const [readyStatement, setReadyStatement] = useState<boolean>(false);
 
-
+    //Management of the states
     const handleChange = (state:Number) =>{
         if(state === 1){
             setTransactionHistory(true);
@@ -39,16 +39,16 @@ return <>
             <h1 className='text-4xl font-semibold'>{subTitle}</h1>
         </div>
         <div className='flex flex-row'>
-            <Link to = "/history"><button  className={`p-5 text-lg font-semibold text-gray-400 ${transactionHistory ? "border-b-blue-600 border-b-3" : ""}`} onClick={()=>handleChange(1)}>Transaction history</button></Link>
-            <Link to = "scheduled"><button  className={`p-5 text-lg font-semibold text-gray-400 ${createStatement ? "border-b-blue-600 border-b-3" : ""}`} onClick={()=>handleChange(2)}>Create Statement</button></Link>
-            <Link to = "reported"><button  className={`p-5 text-lg font-semibold text-gray-400 ${readyStatement ? "border-b-blue-600 border-b-3" : ""}`} onClick={()=>handleChange(3)}>Ready Statement</button></Link>
+            <Link to = "/history"><button  className={`p-5 text-lg font-semibold  ${transactionHistory ? "text-black border-b-blue-600 border-b-3" : "text-gray-400"}`} onClick={()=>handleChange(1)}>Transaction history</button></Link>
+            <Link to = "scheduled"><button  className={`p-5 text-lg font-semibold ${createStatement ? "text-black border-b-blue-600 border-b-3" : "text-gray-400"}`} onClick={()=>handleChange(2)}>Create Statement</button></Link>
+            <Link to = "reported"><button  className={`p-5 text-lg font-semibold ${readyStatement ? "text-black border-b-blue-600 border-b-3" : "text-gray-400"}`} onClick={()=>handleChange(3)}>Ready Statement</button></Link>
         </div>
     </div>
 
     <hr className='w-full pt-0 mt-0 border-gray-200 border-1'></hr>
 
     {/* The part we can see the result! */}
-    <div className=''>
+    <div className=' mt-[24px]'>
         {transactionHistory ? <TrHistory/> : <Outlet/>}
     </div>
 </>
