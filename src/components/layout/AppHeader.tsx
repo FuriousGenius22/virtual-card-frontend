@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+
 import {type FC, useState } from "react";
 import { Image } from "@nextui-org/react";
 import { Link } from "react-router-dom";
