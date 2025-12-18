@@ -1,13 +1,10 @@
 import React, { useState } from "react";
 import authImage from "../assets/auth.png";
 import logo from "../assets/logo.svg";
-import { Link } from "react-router-dom";
 import PasswordInput from "../components/common/PasswordInput";
 import LanguageModal from "../components/LanguageModal";
 
-
-
-const Auth: React.FC = () => {
+const Reg: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -62,40 +59,44 @@ const Auth: React.FC = () => {
               className="w-full rounded-lg border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <PasswordInput placeholder="Password" />
+            <div className="">
+              <div className="mb-2">
+                <PasswordInput placeholder="Create password (Minimum 8 characters)" />
+              </div>
+              <div className="">
+                <PasswordInput placeholder="Password" />
+              </div>
+            </div>
 
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 text-gray-600">
-                <input
-                  type="checkbox"
-                  defaultChecked
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                Remember me
+            <div className="font-sans text-[0.8vw]">
+              <input type="checkbox" id="01" value="01" />
+              <label>
+                By signing up, you agree to our Terms of Service and Privacy
+                Policy
               </label>
-
-              <Link to="/auth.epn/reset-password">
-                <button type="button" className="text-blue-600 hover:underline">
-                  Forgot password?
-                </button>
-              </Link>
+              <br></br>
+              <input type="checkbox" id="02" value="01" />
+              <label>
+                {" "}
+                By registering, you confirm that you are not a resident of the
+                Following Countries
+              </label>
+              <br></br>
             </div>
 
             <button
               type="submit"
               className="w-full bg-black text-white rounded-lg py-2 font-medium hover:bg-gray-900 transition"
             >
-              Log in
+              Sign up
             </button>
 
-            <Link to = "/reg.epn">
-              <button
-                type="button"
-                className="w-full border border-gray-300 rounded-lg py-2 font-medium hover:bg-gray-50 transition mt-[2vh]"
-              >
-                Sign up
-              </button>
-            </Link>
+            <button
+              type="button"
+              className="w-full border border-gray-300 rounded-lg py-2 font-medium hover:bg-gray-50 transition"
+            >
+              Sign in
+            </button>
 
             <div className="flex items-center gap-4 my-4">
               <div className="flex-1 h-px bg-gray-200" />
@@ -125,4 +126,4 @@ const Auth: React.FC = () => {
   );
 };
 
-export default Auth;
+export default Reg;
