@@ -1,13 +1,11 @@
 import React, { useState } from "react";
 import authImage from "../assets/auth.png";
 import logo from "../assets/logo.svg";
-import { Link } from "react-router-dom";
-import PasswordInput from "../components/common/PasswordInput";
 import LanguageModal from "../components/LanguageModal";
 
 
 
-const Auth: React.FC = () => {
+const ResetPassword: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
 
   return (
@@ -48,54 +46,32 @@ const Auth: React.FC = () => {
 
           {/* Welcome */}
           <h1 className="text-2xl font-semibold text-gray-900 mb-2">
-            Welcome 👋
+            Reset Password
           </h1>
-          <p className="text-gray-500 mb-8">
-            Login to your EPN account or create a new one
-          </p>
-
+          
           {/* Form (ORIGINAL) */}
-          <form className="space-y-3">
+          <form className="space-y-5">
             <input
               type="email"
-              placeholder="Email"
+              placeholder="Enter Your Email"
               className="w-full rounded-lg border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <PasswordInput placeholder="Password" />
-
-            <div className="flex items-center justify-between text-sm">
-              <label className="flex items-center gap-2 text-gray-600">
-                <input
-                  type="checkbox"
-                  defaultChecked
-                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500"
-                />
-                Remember me
-              </label>
-
-              <Link to="/auth.epn/reset-password">
-                <button type="button" className="text-blue-600 hover:underline">
-                  Forgot password?
-                </button>
-              </Link>
-            </div>
+            
 
             <button
               type="submit"
               className="w-full bg-black text-white rounded-lg py-2 font-medium hover:bg-gray-900 transition"
             >
-              Log in
+              Recover Password
             </button>
 
-            <Link to = "/reg.epn">
-              <button
-                type="button"
-                className="w-full border border-gray-300 rounded-lg py-2 font-medium hover:bg-gray-50 transition mt-[2vh]"
-              >
-                Sign up
-              </button>
-            </Link>
+            <button
+              type="button"
+              className="w-full border border-gray-300 rounded-lg py-2 font-medium hover:bg-gray-50 transition"
+            >
+              Sign in
+            </button>
 
             <div className="flex items-center gap-4 my-4">
               <div className="flex-1 h-px bg-gray-200" />
@@ -103,17 +79,7 @@ const Auth: React.FC = () => {
               <div className="flex-1 h-px bg-gray-200" />
             </div>
 
-            <button
-              type="button"
-              className="w-full border border-gray-300 rounded-lg py-2 font-medium flex items-center justify-center gap-3 hover:bg-gray-50 transition"
-            >
-              <img
-                src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg"
-                alt="Google"
-                className="h-5 w-5"
-              />
-              Log in with Google
-            </button>
+           
           </form>
 
           <p className="text-center text-xs text-gray-400 mt-10">
@@ -125,4 +91,4 @@ const Auth: React.FC = () => {
   );
 };
 
-export default Auth;
+export default ResetPassword;
