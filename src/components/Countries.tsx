@@ -1,4 +1,4 @@
-// src/data/countries.ts
+// src/data/countries.tsx
 export const Countries = [
   { name: "Afghanistan", code: "af" },
   { name: "Albania", code: "al" },
