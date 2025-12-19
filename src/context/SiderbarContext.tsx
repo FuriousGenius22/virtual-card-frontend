@@ -1,78 +1,51 @@
-import { createContext, useContext, useState, useEffect } from "react";
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useEffect, useState } from "react";
 
-type SidebarContextType = {
-    isExpanded: boolean;
-    isMobileOpen: boolean;
-    activeItem: string | null;
-    openSubmenu: string | null;
-    toggleSidebar: () => void;
-    toggleMobileSidebar: () => void;
-    setActiveItem: (item: string | null) => void;
-    toggleSubmenu: (item: string) => void;
+type SiderbarContextType = {
+  isExpanded: boolean;
+  isMobile: boolean;
+  toggleSiderbar: () => void;
 };
 
-const SidebarContext = createContext<SidebarContextType | undefined>(undefined);
+const SiderbarContext = createContext<SiderbarContextType | undefined>(undefined);
 
-export const useSidebar = () => {
-    const context = useContext(SidebarContext);
-    if (!context) {
-        throw new Error("useSidebar must be used within a SidebarProvider");
-    }
-    return context;
+export const useSiderbar = () => {
+  const ctx = useContext(SiderbarContext);
+  if (!ctx) {
+    throw new Error("useSiderbar must be used within SiderbarProvider");
+  }
+  return ctx;
 };
 
-export const SidebarProvider: React.FC<{ children: React.ReactNode }> = ({
-    children
+export const SiderbarProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
 }) => {
-    const [isExpanded, setIsExpanded] = useState(false);
-    const [isMobileOpen, setIsMobileOpen] = useState(false);
-    const [isMobile, setIsMobile] = useState(false);
-    const [activeItem, setActiveItem] = useState<string | null>(null);
-    const [openSubmenu, setOpenSubmenu] = useState<string | null>(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
-    useEffect(() => {
-        const handleResize = () => {
-            const mobile = window.innerWidth < 768;
-            setIsMobile(mobile);
-            if (!mobile) {
-                setIsMobileOpen(false);
-            }
-        };
-
-        handleResize();
-        window.addEventListener("resize", handleResize);
-
-        return () => {
-            window.removeEventListener("resize", handleResize);
-        };
-    }, []);
-
-    const toggleSidebar = () => {
-        setIsExpanded((prev) => !prev);
+  useEffect(() => {
+    const onResize = () => {
+      setIsMobile(window.innerWidth < 768);
     };
 
-    const toggleMobileSidebar = () => {
-        setIsMobileOpen((prev) => !prev);
-    };
+    onResize();
+    window.addEventListener("resize", onResize);
+    return () => window.removeEventListener("resize", onResize);
+  }, []);
 
-    const toggleSubmenu = (item: string) => {
-        setOpenSubmenu((prev) => (prev === item ? null : item));
-    };
+  const toggleSiderbar = () => {
+    setIsExpanded((prev) => !prev);
+  };
 
-    return (
-        <SidebarContext.Provider
-            value={{
-                isExpanded: isMobile ? false : isExpanded,
-                isMobileOpen,
-                activeItem,
-                openSubmenu,
-                toggleSidebar,
-                toggleMobileSidebar,
-                setActiveItem,
-                toggleSubmenu
-            }}
-        >
-            {children}
-        </SidebarContext.Provider>
-    );
+  return (
+    <SiderbarContext.Provider
+      value={{
+        isExpanded,
+        isMobile,
+        toggleSiderbar,
+      }}
+    >
+      {children}
+    </SiderbarContext.Provider>
+  );
 };

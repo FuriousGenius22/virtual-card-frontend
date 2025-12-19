@@ -1,52 +1,44 @@
-import { SidebarProvider, useSidebar } from "../../context/SiderbarContext";
 import { Outlet } from "react-router";
+import { SiderbarProvider, useSiderbar } from "../../context/SiderbarContext";
 import AppHeader from "./AppHeader";
 import AppSiderbar from "./AppSiderbar";
 
 const LayoutContent: React.FC = () => {
-    const { isExpanded, isMobileOpen } = useSidebar();
+  const { isExpanded } = useSiderbar();
 
-    return (
-        <div className="flex flex-col min-h-screen bg-white">
+  return (
+    <div className="flex h-screen flex-col bg-white">
+      <header className="sticky top-0 z-40 bg-white">
+        <AppHeader />
+      </header>
 
-            <header className="sticky top-0 z-40 w-full bg-white border-b">
-                <AppHeader />
-            </header>
-
-            <div className="flex flex-1 overflow-hidden">
-                <aside
-                    className={`
-            relative min-h-screen shrink-0 border-r bg-white
+      <div className="flex flex-1 overflow-hidden">
+        <aside
+          className={`
+            shrink-0 border-r bg-white
             transition-all duration-300 ease-in-out
-            ${isExpanded ? "w-60" : "w-24"}
+            ${isExpanded ? "w-64" : "w-20"}
           `}
-                >
-                    <AppSiderbar />
-                </aside>
+        >
+          <AppSiderbar />
+        </aside>
 
-                {/* Main content */}
-                <main className="flex-1 overflow-y-auto">
-                    <div
-                        className={`
-              mx-auto w-full max-w-7xl
-              px-4 py-6 md:px-6 lg:px-8
-              transition-all duration-300
-            `}
-                    >
-                        <Outlet />
-                    </div>
-                </main>
-            </div>
-        </div>
-    );
+        <main className="flex-1 overflow-y-auto bg-gray-50">
+          <div className="mx-auto max-w-7xl px-6 py-6">
+            <Outlet />
+          </div>
+        </main>
+      </div>
+    </div>
+  );
 };
 
 const AppLayout: React.FC = () => {
-    return (
-        <SidebarProvider>
-            <LayoutContent />
-        </SidebarProvider>
-    );
+  return (
+    <SiderbarProvider>
+      <LayoutContent />
+    </SiderbarProvider>
+  );
 };
 
 export default AppLayout;

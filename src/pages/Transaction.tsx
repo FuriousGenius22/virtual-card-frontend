@@ -2,17 +2,17 @@ import {useState, type FC} from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import TrHistory from '../components/Transaction/TrHistory';
 
-interface Props {}
+type Props = object
 
 const Transaction: FC<Props> = () => {
 
-    const [subTitle, setSubTitle] = useState<String>('Transaction history');
+    const [subTitle, setSubTitle] = useState<string>('Transaction history');
     const [transactionHistory, setTransactionHistory] = useState<boolean>(true);
     const [createStatement, setCreateStatement] = useState<boolean>(false);
     const [readyStatement, setReadyStatement] = useState<boolean>(false);
 
     //Management of the states
-    const handleChange = (state:Number) =>{
+    const handleChange = (state:number) =>{
         if(state === 1){
             setTransactionHistory(true);
             setCreateStatement(false);
