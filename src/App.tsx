@@ -9,9 +9,9 @@ import AppLayout from "./components/layout/AppLayout";
 
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Transaction from "./pages/Transaction";
-import Scheduled from "./components/Transaction/Scheduled";
-import Reported from "./components/Transaction/Reported";
-import TrHistory from "./components/Transaction/TrHistory";
+import Scheduled from "./components/Transactions/Scheduled";
+import Reported from "./components/Transactions/Reported";
+import TrHistory from "./components/Transactions/TrHistory";
 import Reg from "./pages/Reg";
 import ResetPassword from "./pages/ResetPassword";
 
