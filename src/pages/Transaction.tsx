@@ -45,14 +45,66 @@ return <>
         </div>
     </div>
 
-    <hr className='w-full pt-0 mt-0 border-gray-200 border-1'></hr>
+export default function Transaction() {
+  const [open, setOpen] = useState(false);
+  const calendarRef = useRef<HTMLDivElement>(null);
 
-    {/* The part we can see the result! */}
-    <div className=' mt-[24px]'>
-        {transactionHistory ? <TrHistory/> : <Outlet/>}
+  useEffect(() => {
+    const close = (e: MouseEvent) => {
+      if (
+        calendarRef.current &&
+        !calendarRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, []);
+
+  return (
+    <div className="p-8">
+      {/* ===== HEADER ===== */}
+      <div className="flex justify-between items-center border-b pb-4 mb-6">
+        <h1 className="text-3xl font-semibold">Transaction history</h1>
+
+        <Tabs
+          tabs={[
+            "Transaction history",
+            "Create Statement",
+            "Ready Statements",
+          ]}
+          onChange={(index) => {
+            // later you can route or swap content here
+            console.log("Active tab:", index);
+          }}
+        />
+      </div>
+
+      {/* ===== FILTERS ===== */}
+      <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 relative">
+        <div className="flex items-center justify-between">
+          <div ref={calendarRef} className="relative">
+            <MonthButton onClick={() => setOpen(!open)} />
+            {open && <DateRangeCalendar onClose={() => setOpen(false)} />}
+          </div>
+
+          <FilterTabs />
+        </div>
+
+        <FilterRow />
+      </div>
+
+      {/* ===== TABLE ===== */}
+      <div className="mt-6 bg-gray-50 border border-gray-200 rounded-2xl p-6">
+        <div className="flex justify-between text-sm text-gray-500 mb-4 px-4">
+          <span>Date</span>
+          <span>Transaction type</span>
+          <span>Amount</span>
+        </div>
+
+        <EmptyState />
+      </div>
     </div>
-</>
-
-};
-
-export default Transaction;
+  );
+}

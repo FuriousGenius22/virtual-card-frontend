@@ -1,16 +1,5 @@
 import React, { useState } from "react";
-
-const languages = [
-  { name: "English", native: "English", code: "gb" },
-  { name: "Arabic", native: "اللغة العربية", code: "ae" },
-  { name: "Belarusian", native: "Белорусский", code: "by" },
-  { name: "Bengali", native: "বাংলা", code: "bd" },
-  { name: "Bulgarian", native: "Български", code: "bg" },
-  { name: "Chinese", native: "中文", code: "cn" },
-  { name: "Czech", native: "Česky", code: "cz" },
-  { name: "Danish", native: "Dansk", code: "dk" },
-  { name: "Dutch", native: "Nederlands", code: "nl" },
-];
+import { Countries } from "../components/Countries";
 
 type ModalProps = {
   visible: boolean;
@@ -22,10 +11,8 @@ const LanguageModal: React.FC<ModalProps> = ({ visible, onClose }) => {
 
   if (!visible) return null;
 
-  const filtered = languages.filter(
-    (l) =>
-      l.name.toLowerCase().includes(search.toLowerCase()) ||
-      l.native.includes(search)
+  const filtered = Countries.filter((c) =>
+    c.name.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
@@ -34,11 +21,11 @@ const LanguageModal: React.FC<ModalProps> = ({ visible, onClose }) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl w-[360px] max-h-[80vh] overflow-hidden"
+        className="bg-white rounded-2xl w-[360px] max-h-[80vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Search */}
-        <div className="p-4">
+        <div className="p-4 border-b">
           <div className="flex items-center gap-2 bg-gray-100 rounded-full px-4 py-2">
             🔍
             <input
@@ -50,31 +37,29 @@ const LanguageModal: React.FC<ModalProps> = ({ visible, onClose }) => {
           </div>
         </div>
 
-        {/* Language List */}
-        <div className="overflow-y-auto">
-          {filtered.map((l, i) => (
-            <div key={l.code}>
-              <button
-                className="w-full flex items-center gap-3 px-5 py-3 hover:bg-gray-100 text-left"
-                onClick={onClose}
-              >
-                <img
-                  src={`https://flagcdn.com/24x18/${l.code}.png`}
-                  className="w-6 h-4 rounded-sm"
-                  alt={l.name}
-                />
-                <div>
-                  <p className="text-sm font-medium">{l.name}</p>
-                  <p className="text-xs text-gray-500">{l.native}</p>
-                </div>
-              </button>
-
-              {i === 0 && <div className="h-px bg-gray-200 mx-5" />}
-            </div>
+        {/* Scroll Area with padding bar */}
+        <div
+          className="flex-1 overflow-y-auto px-2 py-2"
+          style={{ scrollbarGutter: "stable" }}
+        >
+          {filtered.map((c) => (
+            <button
+              key={c.code}
+              onClick={onClose}
+              className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 text-left"
+            >
+              <img
+                src={`https://flagcdn.com/24x18/${c.code}.png`}
+                className="w-6 h-4 rounded-sm"
+                alt={c.name}
+              />
+              <span className="text-sm font-medium">{c.name}</span>
+            </button>
           ))}
         </div>
       </div>
     </div>
   );
 };
-export default LanguageModal
+
+export default LanguageModal;
