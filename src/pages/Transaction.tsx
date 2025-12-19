@@ -1,58 +1,71 @@
-import {useState, type FC} from 'react';
-import { Link, Outlet } from 'react-router-dom';
-import TrHistory from '../components/Transaction/TrHistory';
+import { useEffect, useRef, useState } from "react";
+import MonthButton from "../components/Transactions/MonthButton";
+import DateRangeCalendar from "../components/Transactions/DateRangeCalendar";
+import FilterTabs from "../components/Transactions/FilterTabs";
+import FilterRow from "../components/Transactions/FilterRow";
+import EmptyState from "../components/Transactions/EmptyState";
+import Tabs from "../components/common/Tabs";
 
-interface Props {}
+export default function Transaction() {
+  const [open, setOpen] = useState(false);
+  const calendarRef = useRef<HTMLDivElement>(null);
 
-const Transaction: FC<Props> = () => {
+  useEffect(() => {
+    const close = (e: MouseEvent) => {
+      if (
+        calendarRef.current &&
+        !calendarRef.current.contains(e.target as Node)
+      ) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, []);
 
-    const [subTitle, setSubTitle] = useState<String>('Transaction history');
-    const [transactionHistory, setTransactionHistory] = useState<boolean>(true);
-    const [createStatement, setCreateStatement] = useState<boolean>(false);
-    const [readyStatement, setReadyStatement] = useState<boolean>(false);
+  return (
+    <div className="p-8">
+      {/* ===== HEADER ===== */}
+      <div className="flex justify-between items-center border-b pb-4 mb-6">
+        <h1 className="text-3xl font-semibold">Transaction history</h1>
 
-    //Management of the states
-    const handleChange = (state:Number) =>{
-        if(state === 1){
-            setTransactionHistory(true);
-            setCreateStatement(false);
-            setReadyStatement(false);
-            setSubTitle('Transaction history');
-        }else if(state === 2){
-            setTransactionHistory(false);
-            setCreateStatement(true);
-            setReadyStatement(false);
-            setSubTitle('Create Statement');
-        }else if(state === 3){
-            setTransactionHistory(false);
-            setCreateStatement(false);
-            setReadyStatement(true);
-            setSubTitle('Ready Statements');
-        }
-    }
+        <Tabs
+          tabs={[
+            "Transaction history",
+            "Create Statement",
+            "Ready Statements",
+          ]}
+          onChange={(index) => {
+            // later you can route or swap content here
+            console.log("Active tab:", index);
+          }}
+        />
+      </div>
 
-return <>
+      {/* ===== FILTERS ===== */}
+      <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 relative">
+        <div className="flex items-center justify-between">
+          <div ref={calendarRef} className="relative">
+            <MonthButton onClick={() => setOpen(!open)} />
+            {open && <DateRangeCalendar onClose={() => setOpen(false)} />}
+          </div>
 
-    {/* The first part! Search box! */}
-    <div className='flex flex-row flex-1 pl-[30px] mt-[28px] justify-between'>
-        <div>
-            <h1 className='text-4xl font-semibold'>{subTitle}</h1>
+          <FilterTabs />
         </div>
-        <div className='flex flex-row'>
-            <Link to = "/history"><button  className={`p-5 text-lg font-semibold  ${transactionHistory ? "text-black border-b-blue-600 border-b-3" : "text-gray-400"}`} onClick={()=>handleChange(1)}>Transaction history</button></Link>
-            <Link to = "scheduled"><button  className={`p-5 text-lg font-semibold ${createStatement ? "text-black border-b-blue-600 border-b-3" : "text-gray-400"}`} onClick={()=>handleChange(2)}>Create Statement</button></Link>
-            <Link to = "reported"><button  className={`p-5 text-lg font-semibold ${readyStatement ? "text-black border-b-blue-600 border-b-3" : "text-gray-400"}`} onClick={()=>handleChange(3)}>Ready Statement</button></Link>
+
+        <FilterRow />
+      </div>
+
+      {/* ===== TABLE ===== */}
+      <div className="mt-6 bg-gray-50 border border-gray-200 rounded-2xl p-6">
+        <div className="flex justify-between text-sm text-gray-500 mb-4 px-4">
+          <span>Date</span>
+          <span>Transaction type</span>
+          <span>Amount</span>
         </div>
+
+        <EmptyState />
+      </div>
     </div>
-
-    <hr className='w-full pt-0 mt-0 border-gray-200 border-1'></hr>
-
-    {/* The part we can see the result! */}
-    <div className=' mt-[24px]'>
-        {transactionHistory ? <TrHistory/> : <Outlet/>}
-    </div>
-</>
-
-};
-
-export default Transaction;
+  );
+}
