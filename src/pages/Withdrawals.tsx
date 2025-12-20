@@ -1,7 +1,6 @@
-
 import Tabs from "../components/common/Tabs";
 
-const Accounts = () => {
+const Withdrawals = () => {
   return (
     <div>
       <Tabs
@@ -36,4 +35,5 @@ const Accounts = () => {
     </div>
   );
 };
-export default Accounts;
+
+export default Withdrawals;

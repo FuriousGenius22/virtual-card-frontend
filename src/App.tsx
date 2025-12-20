@@ -14,6 +14,11 @@ import Reported from "./components/Transactions/Reported";
 import TrHistory from "./components/Transactions/TrHistory";
 import Reg from "./pages/Reg";
 import ResetPassword from "./pages/ResetPassword";
+import Withdrawals from "./pages/Withdrawals";
+import Overview from "./pages/Overview";
+import TopUp from "./pages/TopUp";
+import AccountsTransfer from "./pages/AccountsTransfer";
+import TransferToUser from "./pages/TransferToUser";
 
 const App = () => {
   return (
@@ -27,7 +32,13 @@ const App = () => {
 
           <Route path="/" element={<LandingPage />} />
           <Route element={<AppLayout />}>
-            <Route path="/accounts" element={<Accounts />} />
+            <Route path="/withdrawals" element={<Withdrawals />} />
+            <Route path="accounts" element={<Accounts />} >
+              <Route path="overview" element={<Overview />} />
+              <Route path="topUp" element={<TopUp />} />
+              <Route path="accountsTransfer" element={<AccountsTransfer />} />
+              <Route path="transferToUser" element={<TransferToUser />} />
+            </Route>
             <Route path="/cards" element={<Cards />} />
 
             <Route path="/dashboard" element={<Dashboard />} />

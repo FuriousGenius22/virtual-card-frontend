@@ -17,6 +17,7 @@
     "@mui/x-date-pickers": "^8.22.0",
     "@mui/x-date-pickers-pro": "^8.22.0",
     "@nextui-org/react": "^2.6.11",
+    "animate-ui": "^0.0.4",
     "date-fns": "^4.1.0",
     "dayjs": "^1.11.19",
     "flowbite": "^4.0.1",
