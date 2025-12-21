@@ -9,7 +9,7 @@ const Transaction= () => {
         tabs={[
           {
             label: "Transaction History",
-            path: "/history",
+            path: "/history/view",
             title: "Transaction History",
           },
           {
@@ -22,7 +22,7 @@ const Transaction= () => {
             path: "/history/report",
             title: "Ready Statement",
           },
-          
+       
         ]}
       />
       <Outlet />

@@ -55,7 +55,7 @@ const App = () => {
 
 
             <Route path="/history" element={<Transaction />}>
-              <Route path="" element={<TrHistory />} />
+              <Route path="view" element={<TrHistory />} />
               <Route path="scheduled" element={<Scheduled />} />
               <Route path="report" element={<Report />} />
             </Route>

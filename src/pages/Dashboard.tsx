@@ -6,7 +6,7 @@ import AccountCard from '../components/common/AccountCard';
 import { Link } from 'react-router-dom';
 import { SquareChevronRight, SquarePlus, ArrowRightLeft } from 'lucide-react'
 
-interface Props { }
+type Props = object
 
 const Dashboard: FC<Props> = () => {
 

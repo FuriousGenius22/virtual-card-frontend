@@ -6,7 +6,7 @@ const items = [
   { label: "Dashboard", icon: Home, to: "/dashboard" },
   { label: "Accounts", icon: Wallet, to: "/accounts/overview" },
   { label: "Cards", icon: CreditCard, to: "/cards" },
-  { label: "Transaction history", icon: Clock, to: "/history" },
+  { label: "Transaction history", icon: Clock, to: "/history/view" },
 ];
 
 const AppSiderbar: React.FC = () => {
