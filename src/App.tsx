@@ -9,12 +9,18 @@ import AppLayout from "./components/layout/AppLayout";
 
 import { ScrollToTop } from "./components/common/ScrollToTop";
 import Transaction from "./pages/Transaction";
-import Scheduled from "./components/Transactions/Scheduled";
-import Reported from "./components/Transactions/Reported";
-import TrHistory from "./components/Transactions/TrHistory";
+import Scheduled from "./pages/Scheduled";
+import TrHistory from "./pages/TrHistory";
 import Reg from "./pages/Reg";
 import ResetPassword from "./pages/ResetPassword";
-
+import Withdrawals from "./pages/Withdrawals";
+import Overview from "./pages/Overview";
+import TopUp from "./pages/TopUp";
+import AccountsTransfer from "./pages/AccountsTransfer";
+import TransferToUser from "./pages/TransferToUser";
+import DeclineBoard from "./pages/Declineboard";
+import NewCard from "./pages/NewCard";
+import Report from "./pages/Report";
 const App = () => {
   return (
     <div>
@@ -23,20 +29,39 @@ const App = () => {
         <Routes>
           <Route path="auth.epn" element={<Auth />} />
           <Route path="reg.epn" element={<Reg />} />
+          
           <Route path="auth.epn/reset-password/" element={<ResetPassword />} />
 
           <Route path="/" element={<LandingPage />} />
           <Route element={<AppLayout />}>
-            <Route path="/accounts" element={<Accounts />} />
-            <Route path="/cards" element={<Cards />} />
+            <Route path="decline-board" element={<DeclineBoard />} />
+            <Route path="/withdrawals" element={<Withdrawals />} />
+            <Route path="/new-card" element={<NewCard />} />
 
+
+
+
+            <Route path="/accounts" element={<Accounts />} >
+              <Route path="overview" element={<Overview />} />
+              <Route path="topUp" element={<TopUp />} />
+              <Route path="accountsTransfer" element={<AccountsTransfer />} />
+              <Route path="transferToUser" element={<TransferToUser />} />
+            </Route>
+
+
+            <Route path="/cards" element={<Cards />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="*" element={<NotFound />} />
+
+
             <Route path="/history" element={<Transaction />}>
               <Route path="" element={<TrHistory />} />
               <Route path="scheduled" element={<Scheduled />} />
-              <Route path="reported" element={<Reported />} />
+              <Route path="report" element={<Report />} />
             </Route>
+
+
+
           </Route>
         </Routes>
       </BrowserRouter>

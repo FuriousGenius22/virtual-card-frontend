@@ -1,63 +1,90 @@
-import { useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
+import { Link, useLocation } from "react-router-dom";
 
-interface TabsProps {
-  tabs: string[];
-  defaultIndex?: number;
-  onChange?: (index: number) => void;
+interface TabItem {
+  label: string;
+  path: string;
+  title: string; // left-side text when active
 }
 
-export default function Tabs({
-  tabs,
-  defaultIndex = 0,
-  onChange,
-}: TabsProps) {
-  const [active, setActive] = useState(defaultIndex);
+interface TabsProps {
+  tabs: TabItem[];
+}
 
-  const tabRefs = useRef<(HTMLSpanElement | null)[]>([]);
+export default function Tabs({ tabs }: TabsProps) {
+  
+  const location = useLocation();
+
+  const activeIndex = tabs.findIndex(tab =>
+    location.pathname.startsWith(tab.path)
+  );
+
+  const safeIndex = activeIndex === -1 ? 0 : activeIndex;
+
+  const tabRefs = useRef<(HTMLAnchorElement | null)[]>([]);
   const underlineRef = useRef<HTMLSpanElement>(null);
 
   useLayoutEffect(() => {
-    const el = tabRefs.current[active];
-    const underline = underlineRef.current;
+  const underline = underlineRef.current;
+  const el = tabRefs.current[safeIndex];
 
-    if (el && underline) {
-      underline.style.width = `${el.offsetWidth}px`;
-      underline.style.transform = `translateX(${el.offsetLeft}px)`;
-    }
-  }, [active, tabs]);
+  if (!underline || !el) return;
 
-  const handleClick = (index: number) => {
-    setActive(index);
-    onChange?.(index);
+  const applyPos = () => {
+    underline.style.width = `${el.offsetWidth}px`;
+    underline.style.transform = `translateX(${el.offsetLeft}px)`;
   };
 
-  return (
-    <div className="relative flex gap-8">
-      {/* Animated underline */}
-      <span
-        ref={underlineRef}
-        className="absolute -bottom-[13px] h-[2px] bg-blue-600 transition-all duration-300 ease-out"
-      />
+  applyPos();
 
-      {tabs.map((label, i) => (
-        <span
-          key={label}
-          ref={(el) => {
-            tabRefs.current[i] = el;
-          }}
-          onClick={() => handleClick(i)}
-          className={`
-            cursor-pointer pb-3 transition-all duration-200 select-none
-            ${
-              active === i
-                ? "text-gray-900 text-base font-medium"
-                : "text-gray-400 text-sm hover:text-gray-600"
-            }
-          `}
-        >
-          {label}
-        </span>
-      ))}
+  const ro = new ResizeObserver(applyPos);
+  ro.observe(el);
+
+  return () => ro.disconnect();
+}, [location.pathname, safeIndex]
+);
+
+  return (
+    <div className="border-b border-gray-200">
+      <div className="flex items-center justify-between px-6 h-[64px]">
+        {/* LEFT TITLE */}
+        <h1 className="text-3xl font-semibold text-gray-900">
+          {tabs[safeIndex].title}
+        </h1>
+
+        {/* RIGHT TABS */}
+        <div className="relative flex gap-8">
+          {/* Animated underline */}
+          <span
+            ref={underlineRef}
+            className="absolute -bottom-[1px] h-[2px] bg-blue-600 transition-all duration-300 ease-out"
+          />
+
+          {tabs.map((tab, i) => {
+            const isActive = i === safeIndex;
+
+            return (
+              <Link
+                key={tab.label}
+                to={tab.path}
+                ref={(el) => {
+                  tabRefs.current[i] = el;
+                }}
+                className={`
+                  relative pb-5 text-sm transition-colors duration-200
+                  ${
+                    isActive
+                      ? "text-gray-900 font-medium"
+                      : "text-gray-400 hover:text-gray-600"
+                  }
+                `}
+              >
+                {tab.label}
+              </Link>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 }

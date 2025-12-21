@@ -45,7 +45,7 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
         {/* Avatar */}
         <div
           className={`relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold bg-white
-          ${hasImage ? "border-2 border-blue-500" : "border-2 border-red-500"}`}
+          ${hasImage ? "border-2 border-blue-500" : "border-2 border-red-800"}`}
         >
           {hasImage ? (
             <img
@@ -59,9 +59,9 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
 
           {/* Status */}
           <span
-            className={`absolute -bottom-1 -right-1 w-4 h-4 rounded-full flex items-center justify-center
+            className={`absolute -bottom-0 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center
             text-[10px] text-white
-            ${hasImage ? "bg-blue-500" : "bg-red-500"}`}
+            ${hasImage ? "bg-blue-500" : "bg-red-800"}`}
           >
             {hasImage ? "✓" : "✕"}
           </span>
