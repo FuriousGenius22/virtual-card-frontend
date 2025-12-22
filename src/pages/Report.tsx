@@ -2,7 +2,7 @@ import React from 'react'
 
 const Report = () => {
   return (
-    <div>Report</div>
+    <div className="flex justify-center mt-10">No Statements</div>
   )
 }
 
