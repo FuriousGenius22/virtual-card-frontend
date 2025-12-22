@@ -1,9 +1,32 @@
-import React from 'react'
 
-const Transaction = () => {
+import { Outlet } from "react-router-dom";
+import Tabs from "../components/common/Tabs";
+
+const Transaction= () => {
   return (
-    <div>Transaction</div>
-  )
-}
-
-export default Transaction
+    <div>
+      <Tabs
+        tabs={[
+          {
+            label: "Transaction History",
+            path: "/history",
+            title: "Transaction History",
+          },
+          {
+            label: "Create Statement",
+            path: "/history/scheduled",
+            title: "Create Statement",
+          },
+          {
+            label: "Ready Statement",
+            path: "/history/report",
+            title: "Ready Statement",
+          },
+          
+        ]}
+      />
+      <Outlet />
+    </div>
+  );
+};
+export default Transaction;

@@ -4,7 +4,7 @@ import { useSiderbar } from "../../context/SiderbarContext";
 
 const items = [
   { label: "Dashboard", icon: Home, to: "/dashboard" },
-  { label: "Accounts", icon: Wallet, to: "/accounts" },
+  { label: "Accounts", icon: Wallet, to: "/accounts/overview" },
   { label: "Cards", icon: CreditCard, to: "/cards" },
   { label: "Transaction history", icon: Clock, to: "/history" },
 ];

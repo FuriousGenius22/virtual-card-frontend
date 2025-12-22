@@ -12,6 +12,7 @@ interface TabsProps {
 }
 
 export default function Tabs({ tabs }: TabsProps) {
+  
   const location = useLocation();
 
   const activeIndex = tabs.findIndex(tab =>
@@ -24,14 +25,24 @@ export default function Tabs({ tabs }: TabsProps) {
   const underlineRef = useRef<HTMLSpanElement>(null);
 
   useLayoutEffect(() => {
-    const el = tabRefs.current[safeIndex];
-    const underline = underlineRef.current;
+  const underline = underlineRef.current;
+  const el = tabRefs.current[safeIndex];
 
-    if (el && underline) {
-      underline.style.width = `${el.offsetWidth}px`;
-      underline.style.transform = `translateX(${el.offsetLeft}px)`;
-    }
-  }, [safeIndex, tabs]);
+  if (!underline || !el) return;
+
+  const applyPos = () => {
+    underline.style.width = `${el.offsetWidth}px`;
+    underline.style.transform = `translateX(${el.offsetLeft}px)`;
+  };
+
+  applyPos();
+
+  const ro = new ResizeObserver(applyPos);
+  ro.observe(el);
+
+  return () => ro.disconnect();
+}, [location.pathname, safeIndex]
+);
 
   return (
     <div className="border-b border-gray-200">

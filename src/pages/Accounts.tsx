@@ -1,4 +1,5 @@
 
+import { Outlet } from "react-router-dom";
 import Tabs from "../components/common/Tabs";
 
 const Accounts = () => {
@@ -33,6 +34,7 @@ const Accounts = () => {
           },
         ]}
       />
+      <Outlet />
     </div>
   );
 };

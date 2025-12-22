@@ -1,9 +1,9 @@
 import React from 'react'
 
-const Declineboard = () => {
+const DeclineBoard = () => {
   return (
     <div>Declineboard</div>
   )
 }
 
-export default Declineboard
+export default DeclineBoard
