@@ -22,7 +22,7 @@ const Overview = () => {
 
           {/* LEFT MAIN ACCOUNT */}
           <Link
-            to="/history"
+            to="/history/view"
             className="flex-1 bg-[#F9FAFB] hover:bg-[#F3F4F6] cursor-pointer 
                        p-6 rounded-xl border border-gray-200 transition"
           >
