@@ -21,6 +21,13 @@ import TransferToUser from "./pages/TransferToUser";
 import DeclineBoard from "./pages/Declineboard";
 import NewCard from "./pages/NewCard";
 import Report from "./pages/Report";
+import Settings from "./pages/Settings";
+import Security from "./pages/Security";
+import Verification from "./pages/Verification";
+import Notification from "./pages/Notification";
+import General from "./pages/General";
+import Grades from "./pages/Grades";
+
 const App = () => {
   return (
     <div>
@@ -35,9 +42,16 @@ const App = () => {
           <Route path="/" element={<LandingPage />} />
           <Route element={<AppLayout />}>
             <Route path="decline-board" element={<DeclineBoard />} />
-            <Route path="/withdrawals" element={<Withdrawals />} />
             <Route path="/new-card" element={<NewCard />} />
-
+            <Route path="/grades" element={<Grades />} />
+            
+            <Route path="/settings" element={<Settings />} > 
+              <Route path="general" element={<General />} />
+              <Route path="security" element={<Security />} />
+              <Route path="verification" element={<Verification />} />
+              <Route path="notifications" element={<Notification />} />
+            </Route>
+            
 
 
 
@@ -46,6 +60,7 @@ const App = () => {
               <Route path="topUp" element={<TopUp />} />
               <Route path="accountsTransfer" element={<AccountsTransfer />} />
               <Route path="transferToUser" element={<TransferToUser />} />
+              <Route path="withdrawals" element={<Withdrawals />} />
             </Route>
 
 

@@ -1,10 +1,9 @@
-import { useLayoutEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 interface TabItem {
   label: string;
   path: string;
-  title: string; // left-side text when active
+  title: string;
 }
 
 interface TabsProps {
@@ -12,7 +11,6 @@ interface TabsProps {
 }
 
 export default function Tabs({ tabs }: TabsProps) {
-  
   const location = useLocation();
 
   const activeIndex = tabs.findIndex(tab =>
@@ -20,29 +18,6 @@ export default function Tabs({ tabs }: TabsProps) {
   );
 
   const safeIndex = activeIndex === -1 ? 0 : activeIndex;
-
-  const tabRefs = useRef<(HTMLAnchorElement | null)[]>([]);
-  const underlineRef = useRef<HTMLSpanElement>(null);
-
-  useLayoutEffect(() => {
-  const underline = underlineRef.current;
-  const el = tabRefs.current[safeIndex];
-
-  if (!underline || !el) return;
-
-  const applyPos = () => {
-    underline.style.width = `${el.offsetWidth}px`;
-    underline.style.transform = `translateX(${el.offsetLeft}px)`;
-  };
-
-  applyPos();
-
-  const ro = new ResizeObserver(applyPos);
-  ro.observe(el);
-
-  return () => ro.disconnect();
-}, [location.pathname, safeIndex]
-);
 
   return (
     <div className="border-b border-gray-200">
@@ -53,34 +28,41 @@ export default function Tabs({ tabs }: TabsProps) {
         </h1>
 
         {/* RIGHT TABS */}
-        <div className="relative flex gap-8">
-          {/* Animated underline */}
-          <span
-            ref={underlineRef}
-            className="absolute -bottom-[1px] h-[2px] bg-blue-600 transition-all duration-300 ease-out"
-          />
-
+        <div className="flex gap-8 relative h-full">
           {tabs.map((tab, i) => {
             const isActive = i === safeIndex;
 
             return (
-              <Link
-                key={tab.label}
-                to={tab.path}
-                ref={(el) => {
-                  tabRefs.current[i] = el;
-                }}
-                className={`
-                  relative pb-5 text-sm transition-colors duration-200
-                  ${
-                    isActive
-                      ? "text-gray-900 font-medium"
-                      : "text-gray-400 hover:text-gray-600"
-                  }
-                `}
-              >
-                {tab.label}
-              </Link>
+              <div key={tab.label} className="relative h-full">
+                <Link
+                  to={tab.path}
+                  className={`
+                    flex items-center h-full text-sm
+                    transition-colors duration-500
+                    ${
+                      isActive
+                        ? "text-gray-900 font-medium"
+                        : "text-gray-400 hover:text-gray-600"
+                    }
+                  `}
+                >
+                  {tab.label}
+                </Link>
+
+                {/* UNDERLINE */}
+                <span
+                  className={`
+                    pointer-events-none
+                    absolute left-0 right-0 bottom-0 h-[2px] bg-blue-600
+
+                    transition-opacity
+                    duration-500
+                    ease-[cubic-bezier(0.4,0,0.2,1)]
+
+                    ${isActive ? "opacity-100" : "opacity-0"}
+                  `}
+                />
+              </div>
             );
           })}
         </div>
