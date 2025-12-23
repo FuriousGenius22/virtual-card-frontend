@@ -13,7 +13,7 @@ const AppSiderbar: React.FC = () => {
   const { isExpanded } = useSiderbar();
 
   return (
-    <nav className="flex h-full flex-col gap-3 px-2 py-5">
+    <nav className="flex flex-col h-full gap-3 px-2 py-5">
       {items.map(({ label, icon: Icon, to }) => {
         const displayLabel =
           !isExpanded && label.length > 10
@@ -32,7 +32,7 @@ const AppSiderbar: React.FC = () => {
                 : "flex-col gap-1 justify-center"}
             `}
           >
-            <Icon className="h-5 w-5 transition-transform group-active:scale-90" />
+            <Icon className="w-5 h-5 transition-transform group-active:scale-90" />
 
             <span className="text-xs font-medium text-center whitespace-nowrap">
               {displayLabel}

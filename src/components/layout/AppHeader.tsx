@@ -10,16 +10,16 @@ const AppHeader: React.FC = () => {
   const { toggleSiderbar } = useSiderbar();
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex h-16 items-center gap-4 px-6 border-b bg-white justify-between">
-      <div className="flex gap-4 items-center">
+    <div className="flex items-center justify-between h-16 gap-4 px-6 bg-white border-b-0">
+      <div className="flex items-center gap-4">
         <button
           onClick={toggleSiderbar}
-          className="p-2 rounded-md hover:bg-gray-100 transition"
+          className="p-2 transition rounded-md hover:bg-gray-100"
         >
           <Menu className="w-6 h-6" />
         </button>
 
-        <img src="/src/assets/logo.svg" alt="logo" className="h-8" />
+        <Link to="/dashboard"><img src="/src/assets/logo.svg" alt="logo" className="h-8" /></Link>
       </div>
       <div className="flex gap-2">
         <Link to="/accounts/topUp">
