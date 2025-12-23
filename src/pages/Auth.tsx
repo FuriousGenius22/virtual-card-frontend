@@ -1,14 +1,31 @@
 import React, { useState } from "react";
 import authImage from "../assets/auth.png";
 import logo from "../assets/logo.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import PasswordInput from "../components/common/PasswordInput";
 import LanguageModal from "../components/LanguageModal";
-
-
+import { login } from "../services/mockAuth";
 
 const Auth: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+
+  const navigate = useNavigate();
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError(null);
+
+    try {
+      login(email, password);
+      navigate("/dashboard");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setError(err.message || "Login failed");
+    }
+  };
 
   return (
     <div className="relative min-h-screen w-full bg-[#F6F8FB] flex items-center justify-center p-4">
@@ -23,7 +40,7 @@ const Auth: React.FC = () => {
           style={{ backgroundImage: `url(${authImage})` }}
         />
 
-        {/* Right Auth Section (UNCHANGED CONTENT) */}
+        {/* Right Auth Section */}
         <div className="relative flex flex-col justify-center px-6 sm:px-12">
           {/* Language Button */}
           <div className="absolute top-4 right-4 z-10">
@@ -46,7 +63,6 @@ const Auth: React.FC = () => {
             <img src={logo} alt="EPN Logo" className="h-8" />
           </div>
 
-          {/* Welcome */}
           <h1 className="text-2xl font-semibold text-gray-900 mb-2">
             Welcome 👋
           </h1>
@@ -54,15 +70,28 @@ const Auth: React.FC = () => {
             Login to your EPN account or create a new one
           </p>
 
-          {/* Form (ORIGINAL) */}
-          <form className="space-y-3">
+          {/* FORM */}
+          <form onSubmit={onSubmit} className="space-y-3">
             <input
               type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               placeholder="Email"
+              required
               className="w-full rounded-lg border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
-            <PasswordInput placeholder="Password" />
+            <PasswordInput
+              value={password}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPassword(e.target.value)
+              }
+              placeholder="Password"
+            />
+
+            {error && (
+              <p className="text-sm text-red-500">{error}</p>
+            )}
 
             <div className="flex items-center justify-between text-sm">
               <label className="flex items-center gap-2 text-gray-600">
@@ -74,10 +103,8 @@ const Auth: React.FC = () => {
                 Remember me
               </label>
 
-              <Link to="/auth.epn/reset-password">
-                <button type="button" className="text-blue-600 hover:underline">
-                  Forgot password?
-                </button>
+              <Link to="/auth.epn/reset-password" className="text-blue-600 hover:underline">
+                Forgot password?
               </Link>
             </div>
 
@@ -88,7 +115,7 @@ const Auth: React.FC = () => {
               Log in
             </button>
 
-            <Link to = "/reg.epn">
+            <Link to="/reg.epn">
               <button
                 type="button"
                 className="w-full border border-gray-300 rounded-lg py-2 font-medium hover:bg-gray-50 transition mt-[2vh]"

@@ -3,7 +3,6 @@ import type { FC } from "react";
 interface ProfileAvatarProps {
   email: string;
   imageUrl?: string;
-  isOpen: boolean;
   onToggle: () => void;
 }
 
@@ -20,7 +19,6 @@ const ProfileAvatar: FC<ProfileAvatarProps> = ({
       onClick={onToggle}
       className="relative flex items-center justify-center w-10 h-10"
     >
-      {/* Avatar */}
       <div
         className={`w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold bg-[#ecf0f5]
         ${hasImage ? "border-2 border-blue-500" : "border-2 border-red-800"}`}
@@ -29,14 +27,13 @@ const ProfileAvatar: FC<ProfileAvatarProps> = ({
           <img
             src={imageUrl}
             alt="Profile"
-            className="w-full h-full rounded-full object-cover"
+            className="object-cover w-full h-full rounded-full"
           />
         ) : (
           <span className="text-blue-600">{initials}</span>
         )}
       </div>
 
-      {/* Status Badge */}
       <span
         className={`absolute -bottom-0 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center text-[10px] text-white
         ${hasImage ? "bg-blue-500" : "bg-red-800"}`}
