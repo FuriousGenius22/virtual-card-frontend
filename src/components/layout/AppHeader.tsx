@@ -9,7 +9,7 @@ const AppHeader: React.FC = () => {
   const { toggleSiderbar } = useSiderbar();
   const [open, setOpen] = useState(false);
   return (
-    <div className="flex items-center justify-between h-16 gap-4 px-6 bg-white border-b">
+    <div className="flex items-center justify-between h-16 gap-4 px-6 bg-white border-b-0">
       <div className="flex items-center gap-4">
         <button
           onClick={toggleSiderbar}
