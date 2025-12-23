@@ -8,6 +8,7 @@ import {
   Languages,
   LogOut,
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 interface ProfileDropdownProps {
   email: string;
@@ -37,11 +38,10 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
   return (
     <div
       ref={ref}
-      className="absolute right-0 top-full mt-2 w-72 bg-white
-                 rounded-lg shadow-xl border border-gray-200 z-50"
+      className="absolute right-0 z-50 mt-2 bg-white border border-gray-200 rounded-lg shadow-xl top-full w-72"
     >
       {/* HEADER */}
-      <div className="flex items-center gap-3 px-4 py-3 bg-gray-50 border-b rounded-t-lg">
+      <div className="flex items-center gap-3 px-4 py-3 border-b rounded-t-lg bg-gray-50">
         {/* Avatar */}
         <div
           className={`relative w-10 h-10 rounded-full flex items-center justify-center text-sm font-semibold bg-white
@@ -51,7 +51,7 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
             <img
               src={imageUrl}
               alt="Profile"
-              className="w-full h-full rounded-full object-cover"
+              className="object-cover w-full h-full rounded-full"
             />
           ) : (
             <span className="text-blue-600">{initials}</span>
@@ -80,11 +80,11 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
       <ul className="py-2 text-sm">
         <Item icon={<Send size={18} />} label="Connect Telegram" />
         <Divider />
-        <Item icon={<ShieldCheck size={18} />} label="Safety and security" />
+        <Link to="/security"><Item icon={<ShieldCheck size={18} />} label="Safety and security" /></Link>
         <Item icon={<UserCheck size={18} />} label="KYC Required" />
         <Divider />
-        <Item icon={<Bell size={18} />} label="Notifications settings" />
-        <Item icon={<Settings size={18} />} label="Settings" />
+        <Link to="/notifications"><Item icon={<Bell size={18} />} label="Notifications settings" /></Link>
+        <Link to="/settings"><Item icon={<Settings size={18} />} label="Settings" /></Link>
         <Item icon={<Languages size={18} />} label="Language" right />
         <Divider />
         <Item icon={<LogOut size={18} />} label="Exit account" danger />
@@ -124,5 +124,5 @@ function Item({
 }
 
 function Divider() {
-  return <div className="my-1 h-px bg-gray-200" />;
+  return <div className="h-px my-1 bg-gray-200" />;
 }
