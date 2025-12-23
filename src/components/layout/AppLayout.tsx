@@ -7,7 +7,7 @@ const LayoutContent: React.FC = () => {
   const { isExpanded } = useSiderbar();
 
   return (
-    <div className="flex h-screen flex-col bg-white">
+    <div className="flex flex-col h-screen bg-white">
       <header className="sticky top-0 z-40 bg-white">
         <AppHeader />
       </header>
@@ -15,7 +15,7 @@ const LayoutContent: React.FC = () => {
       <div className="flex flex-1 overflow-hidden">
         <aside
           className={`
-            shrink-0 border-r bg-white
+            shrink-0 border-r-0 bg-white
             transition-all duration-300 ease-in-out
             ${isExpanded ? "w-64" : "w-20"}
           `}
@@ -24,7 +24,7 @@ const LayoutContent: React.FC = () => {
         </aside>
 
         <main className="flex-1 overflow-y-auto bg-white">
-          <div className="mx-auto max-w-7xl px-6 py-6">
+          <div className="px-6 py-6 mx-auto max-w-7xl">
             <Outlet />
           </div>
         </main>
