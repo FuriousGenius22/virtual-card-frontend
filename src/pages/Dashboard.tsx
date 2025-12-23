@@ -158,7 +158,7 @@ export default function Dashboard() {
           </div>
 
           <Link
-            to="/cards/new-card"
+            to="/new-card"
             className="flex items-center gap-2 bg-[#F3F4F6] text-[#111827] text-[14px] px-4 py-[6px] rounded-lg"
           >
             <MdOutlineCreditCard className="text-[18px]" />
