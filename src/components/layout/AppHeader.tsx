@@ -24,7 +24,7 @@ const AppHeader: React.FC = () => {
       const users: User[] = JSON.parse(
         localStorage.getItem(USERS_KEY) || "[]"
       );
-      return users.length ? users[users.length - 1].email : "unknown@user";
+      return users.length ? users[users.length - 1].email : "unknown@usererer";
     } catch {
       return "unknown@user";
     }
