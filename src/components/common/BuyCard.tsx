@@ -29,64 +29,111 @@ const BuyCard: FC<BuyCardProps> = ({
   disabled,
 }) => {
   return (
-    <div className="grid grid-cols-[220px_200px_1fr_120px] items-center px-6 py-4 border-b border-gray-200 text-sm">
-      {/* CARD NUMBER */}
-      <div className="flex items-center gap-3">
-        <div className="px-3 py-1 border rounded-md font-medium bg-gray-50">
-          {cardNumber}
+    <>
+      {/* Desktop View */}
+      <div className="hidden sm:grid grid-cols-[220px_200px_1fr_120px] items-center px-4 md:px-6 py-3 md:py-4 border-b border-gray-200 text-sm">
+        {/* CARD NUMBER */}
+        <div className="flex items-center gap-3">
+          <div className="px-3 py-1 border rounded-md font-medium bg-gray-50 text-xs md:text-sm">
+            {cardNumber}
+          </div>
+        </div>
+
+        {/* PAYMENT SYSTEM */}
+        <div className="flex items-center gap-2 font-medium">
+          {network === "mastercard" ? (
+            <>
+              <span className="flex">
+                <span className="w-4 h-4 bg-red-500 rounded-full -mr-1" />
+                <span className="w-4 h-4 bg-orange-400 rounded-full" />
+              </span>
+              MasterCard
+            </>
+          ) : (
+            <>
+              <span className="text-blue-600 font-bold">VISA</span>
+              Visa
+            </>
+          )}
+        </div>
+
+        {/* NOTES */}
+        <div className="flex flex-wrap gap-2">
+          <Tag>{cost}</Tag>
+          <Tag>{topUp}</Tag>
+
+          {badges.map((b, i) => (
+            <Tag key={i} variant={b.variant}>
+              {b.icon === "3ds" && <ShieldCheck size={14} />}
+              {b.icon === "apple" && <Apple size={14} />}
+              {b.icon === "gpay" && <Wallet size={14} />}
+              {b.label}
+            </Tag>
+          ))}
+
+          <Tag variant="danger">Additional bank tariffs</Tag>
+        </div>
+
+        {/* ACTION */}
+        <div className="flex justify-end">
+          <button
+            disabled={disabled}
+            className={`px-4 md:px-6 py-2 rounded-md font-medium transition text-xs md:text-sm
+              ${
+                disabled
+                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gray-200"
+              }`}
+          >
+            Buy
+          </button>
         </div>
       </div>
 
-      {/* PAYMENT SYSTEM */}
-      <div className="flex items-center gap-2 font-medium">
-        {network === "mastercard" ? (
-          <>
-            <span className="flex">
-              <span className="w-4 h-4 bg-red-500 rounded-full -mr-1" />
-              <span className="w-4 h-4 bg-orange-400 rounded-full" />
-            </span>
-            MasterCard
-          </>
-        ) : (
-          <>
-            <span className="text-blue-600 font-bold">VISA</span>
-            Visa
-          </>
-        )}
+      {/* Mobile View */}
+      <div className="sm:hidden border-b border-gray-200 p-4 space-y-3">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <div className="px-2.5 py-1 border rounded-md font-medium bg-gray-50 text-xs">
+              {cardNumber}
+            </div>
+            {network === "mastercard" ? (
+              <span className="flex">
+                <span className="w-3 h-3 bg-red-500 rounded-full -mr-1" />
+                <span className="w-3 h-3 bg-orange-400 rounded-full" />
+              </span>
+            ) : (
+              <span className="text-blue-600 font-bold text-xs">VISA</span>
+            )}
+          </div>
+          <button
+            disabled={disabled}
+            className={`px-4 py-1.5 rounded-md font-medium transition text-xs
+              ${
+                disabled
+                  ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                  : "bg-gray-100 hover:bg-gray-200"
+              }`}
+          >
+            Buy
+          </button>
+        </div>
+
+        <div className="flex flex-wrap gap-2">
+          <Tag>{cost}</Tag>
+          <Tag>{topUp}</Tag>
+          {badges.map((b, i) => (
+            <Tag key={i} variant={b.variant}>
+              {b.icon === "3ds" && <ShieldCheck size={12} />}
+              {b.icon === "apple" && <Apple size={12} />}
+              {b.icon === "gpay" && <Wallet size={12} />}
+              {b.label}
+            </Tag>
+          ))}
+          <Tag variant="danger">Additional bank tariffs</Tag>
+        </div>
       </div>
-
-      {/* NOTES */}
-      <div className="flex flex-wrap gap-2">
-        <Tag>{cost}</Tag>
-        <Tag>{topUp}</Tag>
-
-        {badges.map((b, i) => (
-          <Tag key={i} variant={b.variant}>
-            {b.icon === "3ds" && <ShieldCheck size={14} />}
-            {b.icon === "apple" && <Apple size={14} />}
-            {b.icon === "gpay" && <Wallet size={14} />}
-            {b.label}
-          </Tag>
-        ))}
-
-        <Tag variant="danger">Additional bank tariffs</Tag>
-      </div>
-
-      {/* ACTION */}
-      <div className="flex justify-end">
-        <button
-          disabled={disabled}
-          className={`px-6 py-2 rounded-md font-medium transition
-            ${
-              disabled
-                ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-                : "bg-gray-100 hover:bg-gray-200"
-            }`}
-        >
-          Buy
-        </button>
-      </div>
-    </div>
+    </>
   );
 };
 

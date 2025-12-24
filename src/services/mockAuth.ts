@@ -4,7 +4,7 @@ type User = {
   password: string;
 };
 
-const USERS_KEY = "someone";
+const USERS_KEY = "some";
 const TOKEN_KEY = "123456789";
 
 function getUsers(): User[] {

@@ -23,12 +23,10 @@ export default function Transaction() {
   }, []);
 
   return (
-    <div className="p-8">
-     
-
+    <div className="p-4 sm:p-6 md:p-8">
       {/* ===== FILTERS ===== */}
-      <div className="bg-gray-50 border border-gray-200 rounded-2xl p-4 relative">
-        <div className="flex items-center justify-between">
+      <div className="bg-gray-50 border border-gray-200 rounded-xl sm:rounded-2xl p-3 sm:p-4 md:p-6 relative">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 sm:gap-4">
           <div ref={calendarRef} className="relative">
             <MonthButton onClick={() => setOpen(!open)} />
             {open && <DateRangeCalendar onClose={() => setOpen(false)} />}
@@ -41,8 +39,8 @@ export default function Transaction() {
       </div>
 
       {/* ===== TABLE ===== */}
-      <div className="mt-6 bg-gray-50 border border-gray-200 rounded-2xl p-6 ">
-        <div className="flex justify-between text-sm text-gray-500 mb-4 px-4 ">
+      <div className="mt-4 sm:mt-6 bg-gray-50 border border-gray-200 rounded-xl sm:rounded-2xl p-4 sm:p-6">
+        <div className="hidden sm:flex justify-between text-sm text-gray-500 mb-4 px-4">
           <span>Date</span>
           <span>Transaction type</span>
           <span>Amount</span>

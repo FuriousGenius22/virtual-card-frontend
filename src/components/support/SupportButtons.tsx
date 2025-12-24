@@ -5,7 +5,7 @@ import { FaWeixin, FaWhatsapp } from "react-icons/fa";
 
 const SupportButtons: React.FC = () => {
   return (
-    <div className="flex flex-wrap justify-center gap-3 mt-6">
+    <div className="flex flex-wrap justify-center gap-2 sm:gap-3">
       <SupportButton icon={<MessageCircle size={14} />} label="Online chat" />
       <SupportButton icon={<FaWeixin size={14} />} label="WeChat" />
       <SupportButton icon={<FaWhatsapp size={14} />} label="WhatsApp" />

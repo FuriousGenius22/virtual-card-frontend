@@ -21,24 +21,24 @@ export default function Tabs({ tabs }: TabsProps) {
 
   return (
     <div className="border-b border-gray-200">
-      <div className="flex items-center justify-between px-6 h-[64px]">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 min-h-[64px] sm:h-[64px] py-3 sm:py-0">
         {/* LEFT TITLE */}
-        <h1 className="text-3xl font-semibold text-gray-900">
+        <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-gray-900 mb-3 sm:mb-0">
           {tabs[safeIndex].title}
         </h1>
 
-        {/* RIGHT TABS */}
-        <div className="flex gap-8 relative h-full">
+        {/* RIGHT TABS - Horizontal scroll on mobile */}
+        <div className="flex gap-4 sm:gap-6 md:gap-8 relative h-full overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0" style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}>
           {tabs.map((tab, i) => {
             const isActive = i === safeIndex;
 
             return (
-              <div key={tab.label} className="relative h-full">
+              <div key={tab.label} className="relative h-full flex-shrink-0">
                 <Link
                   to={tab.path}
                   className={`
-                    flex items-center h-full text-sm
-                    transition-colors duration-500
+                    flex items-center h-full text-xs sm:text-sm whitespace-nowrap
+                    transition-colors duration-500 px-1
                     ${
                       isActive
                         ? "text-gray-900 font-medium"

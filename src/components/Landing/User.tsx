@@ -6,29 +6,48 @@ const User: React.FC = () => {
     <section
       className="
         w-full
-        min-h-[70vh]
+        min-h-[60vh]
+        sm:min-h-[70vh]
         md:min-h-[750px]
         flex
-        py-[20vh]
-        
+        py-12
+        sm:py-[15vh]
+        md:py-[20vh]
+        justify-center
+        items-center
         md:justify-start
         bg-black
-        md:bg-cover md:bg-center
+        md:bg-cover md:bg-center md:bg-no-repeat
       "
       style={{
         backgroundImage: `url(${UserImage})`,
       }}
     >
+      {/* Mobile: remove background image */}
+      <style>{`
+        @media (max-width: 767px) {
+          section {
+            background-image: none !important;
+          }
+        }
+      `}</style>
+
       {/* Overlay content */}
       <div
         className="
           text-white
           text-center
           md:text-left
-          px-8
+          px-4
+          sm:px-6
           md:px-20
-          ml-[20vh]
+          md:ml-[5vw]
           lg:px-[130px]
+          lg:ml-[10vw]
+          w-full
+          max-w-7xl
+          mx-auto
+          md:mx-0
           animate-hero-float
         "
       >
@@ -37,10 +56,11 @@ const User: React.FC = () => {
           className="
             font-extrabold
             leading-tight
-            text-3xl
-            sm:text-4xl
-            md:text-6xl
-            lg:text-[45px]
+            text-2xl
+            sm:text-3xl
+            md:text-5xl
+            lg:text-6xl
+            xl:text-[45px]
             mt-0
           "
         >
@@ -50,32 +70,24 @@ const User: React.FC = () => {
         {/* Subtitle */}
         <p
           className="
-            mt-4
-          
-            text-base
-            sm:text-lg
-            md:text-1xl
+            mt-3
+            sm:mt-4
+            text-sm
+            sm:text-base
+            md:text-lg
+            lg:text-xl
+            xl:text-[16px]
             font-semibold
-            lg:text-[16px]
           "
         >
-          Transaction notifications, 3DS verification codes, account,<br></br> card and team management
+          Transaction notifications, 3DS verification codes, account,<br className="hidden sm:block" /> card and team management
         </p>
 
         {/* Button Group */}
-        <div className="flex justify-start">
+        <div className="flex justify-center md:justify-start mt-4 sm:mt-5">
           <Buttons />
         </div>
       </div>
-
-      {/* Mobile: remove background image */}
-      <style>{`
-        @media (max-width: 767px) {
-          section {
-            background-image: none !important;
-          }
-        }
-      `}</style>
     </section>
   );
 };
