@@ -56,7 +56,7 @@ const Reg: React.FC = () => {
     <div className="relative min-h-screen w-full bg-[#F6F8FB] flex items-center justify-center p-4">
       <LanguageModal visible={showModal} onClose={() => setShowModal(false)} />
 
-      <div className="w-full max-w-5xl h-[90vh] bg-white rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+      <div className="w-full max-w-5xl min-h-[90vh] sm:h-[90vh] bg-white rounded-xl sm:rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-lg">
         {/* Left Image */}
         <div
           className="hidden md:flex w-full h-full bg-no-repeat bg-center bg-cover"
@@ -64,32 +64,32 @@ const Reg: React.FC = () => {
         />
 
         {/* Right Section */}
-        <div className="relative flex flex-col justify-center px-6 sm:px-12">
+        <div className="relative flex flex-col justify-center px-4 sm:px-6 md:px-8 lg:px-12 py-8 sm:py-10 md:py-0">
           {/* Language */}
-          <div className="absolute top-4 right-4 z-10">
+          <div className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10">
             <button
               onClick={() => setShowModal(true)}
-              className="flex items-center gap-3 border rounded-xl px-4 py-2 text-sm text-gray-700 hover:bg-gray-50"
+              className="flex items-center gap-2 sm:gap-3 border rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-700 hover:bg-gray-50 transition"
             >
               <img
                 src="https://flagcdn.com/24x18/gb.png"
-                className="w-6 h-4 rounded-sm"
+                className="w-5 h-3 sm:w-6 sm:h-4 rounded-sm"
                 alt="English"
               />
-              English
-              <span className="text-gray-500">⌄</span>
+              <span className="hidden sm:inline">English</span>
+              <span className="text-gray-500 text-xs sm:text-sm">⌄</span>
             </button>
           </div>
 
           {/* Logo */}
-          <div className="flex items-center gap-2 mb-6">
-            <img src={logo} alt="EPN Logo" className="h-8" />
+          <div className="flex items-center gap-2 mb-4 sm:mb-6">
+            <img src={logo} alt="EPN Logo" className="h-7 sm:h-8" />
           </div>
 
-          <h1 className="text-2xl font-semibold text-gray-900 mb-2">
+          <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
             Welcome 👋
           </h1>
-          <p className="text-gray-500 mb-8">
+          <p className="text-sm sm:text-base text-gray-500 mb-6 sm:mb-8">
             Create your EPN account or sign in
           </p>
 
@@ -122,13 +122,13 @@ const Reg: React.FC = () => {
 
             <div className="text-xs text-gray-600 space-y-2">
               <label className="flex items-start gap-2">
-                <input type="checkbox" required />
-                By signing up, you agree to our Terms of Service and Privacy Policy
+                <input type="checkbox" required className="mt-0.5 w-4 h-4" />
+                <span className="text-xs sm:text-sm">By signing up, you agree to our Terms of Service and Privacy Policy</span>
               </label>
 
               <label className="flex items-start gap-2">
-                <input type="checkbox" required />
-                You confirm you are not a resident of restricted countries
+                <input type="checkbox" required className="mt-0.5 w-4 h-4" />
+                <span className="text-xs sm:text-sm">You confirm you are not a resident of restricted countries</span>
               </label>
             </div>
 

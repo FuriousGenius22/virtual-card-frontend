@@ -25,14 +25,14 @@ const AppGalleryIcon = () => (
 
 const Buttons: React.FC = () => {
   return (
-    <div className="flex gap-4 flex-wrap">
+    <div className="flex gap-3 sm:gap-4 flex-wrap justify-center md:justify-start">
       <Button
-        icon={<Apple className="w-5 h-5" />}
+        icon={<Apple className="w-4 h-4 sm:w-5 sm:h-5" />}
         label="App Store"
       />
 
       <Button
-        icon={<Smartphone className="w-5 h-5" />}
+        icon={<Smartphone className="w-4 h-4 sm:w-5 sm:h-5" />}
         label="Android"
       />
 
