@@ -1,4 +1,4 @@
-import Tabs from "../components/common/Tabs";
+
 import { useState } from "react";
 import { ExclamationCircleIcon } from "@heroicons/react/24/solid";
 
@@ -6,35 +6,7 @@ const Withdrawals = () => {
   const [amount, setAmount] = useState("");
   return (
     <div>
-      <Tabs
-        tabs={[
-          {
-            label: "Overview",
-            path: "/accounts/overview",
-            title: "Accounts",
-          },
-          {
-            label: "Top-up",
-            path: "/accounts/topUp",
-            title: "Top-up",
-          },
-          {
-            label: "Withdrawals",
-            path: "/withdrawals",
-            title: "Funds withdrawal",
-          },
-          {
-            label: "Between your accounts",
-            path: "/accounts/accountsTransfer",
-            title: "Between your accounts",
-          },
-          {
-            label: "Send to user",
-            path: "/accounts/transferToUser",
-            title: "Send to user",
-          },
-        ]}
-      />
+      
       <div className="w-full h-full px-6 py-8 font-sans text-[#111827] max-w-[900px]">
         {/* WHERE TO WITHDRAW */}
         <p className="text-[15px] font-medium mb-2">Where to withdraw</p>

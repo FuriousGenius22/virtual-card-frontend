@@ -19,7 +19,7 @@ const Accounts = () => {
           },
           {
             label: "Withdrawals",
-            path: "/withdrawals",
+            path: "/accounts/withdrawals",
             title: "Funds withdrawal",
           },
           {

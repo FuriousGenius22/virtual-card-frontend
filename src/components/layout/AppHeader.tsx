@@ -4,6 +4,7 @@ import { IoIosArrowForward } from "react-icons/io";
 import ProfileAvatar from "../common/ProfileAvatar";
 import ProfileDropdown from "../common/ProfileDropdown";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 const AppHeader: React.FC = () => {
   const { toggleSiderbar } = useSiderbar();
@@ -21,8 +22,9 @@ const AppHeader: React.FC = () => {
         <img src="/src/assets/logo.svg" alt="logo" className="h-8" />
       </div>
       <div className="flex gap-2">
-        <button
-          className="
+        <Link to="/accounts/topUp">
+          <button
+            className="
         flex items-center gap-2
         bg-[#F6F9FC]
         px-5 py-2.5
@@ -31,19 +33,21 @@ const AppHeader: React.FC = () => {
         hover:bg-[#E6F0FF]
         select-none
       "
-        >
-          <span className="text-[15px] font-normal text-[#6B7280]">
-            Balance
-          </span>
+          >
+            <span className="text-[15px] font-normal text-[#6B7280]">
+              Balance
+            </span>
 
-          <span className="text-[15px] font-bold text-[#0D0D0D]">$0</span>
+            <span className="text-[15px] font-bold text-[#0D0D0D]">$0</span>
 
-          <span className="text-[15px] font-normal text-[#9CA3AF]">.00</span>
+            <span className="text-[15px] font-normal text-[#9CA3AF]">.00</span>
 
-          <IoIosArrowForward className="text-[#007BFF] text-[16px] ml-1" />
-        </button>
-        <button
-          className="
+            <IoIosArrowForward className="text-[#007BFF] text-[16px] ml-1" />
+          </button>
+        </Link>
+        <Link to="/grades">
+          <button
+            className="
         flex items-center gap-2
         bg-[#F6F9FC]
         px-5 py-2.5
@@ -52,15 +56,18 @@ const AppHeader: React.FC = () => {
         hover:bg-[#E6F0FF]
         select-none
       "
-        >
-          <span className="text-[15px] font-normal text-[#6B7280]">
-            Account level
-          </span>
+          >
+            <span className="text-[15px] font-normal text-[#6B7280]">
+              Account level
+            </span>
 
-          <span className="text-[15px] font-bold text-[#0D0D0D]">Standard</span>
+            <span className="text-[15px] font-bold text-[#0D0D0D]">
+              Standard
+            </span>
 
-          <IoIosArrowForward className="text-[#007BFF] text-[16px] ml-1" />
-        </button>
+            <IoIosArrowForward className="text-[#007BFF] text-[16px] ml-1" />
+          </button>
+        </Link>
       </div>
       <div className="relative flex items-center gap-4">
         <ProfileAvatar
