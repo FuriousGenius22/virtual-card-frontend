@@ -10,12 +10,17 @@ import {
   LogOut,
 } from "lucide-react";
 
-
 interface ProfileDropdownProps {
   email: string;
   imageUrl?: string;
   onClose: () => void;
 }
+
+const getInitials = (email: string) => {
+  if (!email) return "UN";
+  const name = email.split("@")[0];
+  return name.slice(0, 2).toUpperCase();
+};
 
 const ProfileDropdown: FC<ProfileDropdownProps> = ({
   email,
@@ -23,7 +28,7 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
   onClose,
 }) => {
   const ref = useRef<HTMLDivElement>(null);
-  const initials = email.slice(0, 2).toUpperCase();
+  const initials = getInitials(email);
   const hasImage = Boolean(imageUrl);
 
   useEffect(() => {
@@ -57,15 +62,6 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
           ) : (
             <span className="text-blue-600">{initials}</span>
           )}
-
-          {/* Status */}
-          <span
-            className={`absolute -bottom-0 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center
-            text-[10px] text-white
-            ${hasImage ? "bg-blue-500" : "bg-red-800"}`}
-          >
-            {hasImage ? "✓" : "✕"}
-          </span>
         </div>
 
         {/* Email + level */}

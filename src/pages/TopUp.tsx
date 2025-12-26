@@ -3,9 +3,29 @@ import {
   CurrencyDollarIcon,
   GlobeAltIcon,
 } from "@heroicons/react/24/solid";
+import { showToast } from '../toast';
 
 export default function TopUp() {
   const [amount, setAmount] = useState<number | string>("1000");
+
+  // Helper to get/set account and card_charge
+  const getAccount = () => Number(localStorage.getItem("account") || 1000.0);
+  const getCardCharge = () => Number(localStorage.getItem("card_charge") || 0);
+  const setAccount = (val: number) => localStorage.setItem("account", val.toString());
+  const setCardCharge = (val: number) => localStorage.setItem("card_charge", val.toString());
+
+  // Manual payment handler
+  const handleManualPay = () => {
+    const amt = Number(amount);
+    if (isNaN(amt) || amt <= 0) return;
+    const acc = getAccount();
+    const card = getCardCharge();
+    setAccount(Math.max(0, acc - amt));
+    setCardCharge(card + amt);
+    showToast(`${amt} $ of money topped-up!`, 'success');
+    // Optionally, reset input or show a message
+    setAmount("");
+  };
 
   return (
     <div className="w-full h-full px-4 sm:px-6 py-4 sm:py-6 font-sans text-[#111827]">
@@ -137,6 +157,7 @@ export default function TopUp() {
           <button
             className="bg-blue-600 text-white rounded-md px-4 sm:px-5 py-2 
                        font-semibold text-xs sm:text-sm md:text-[14px] hover:bg-blue-700 transition w-full sm:w-auto"
+            onClick={handleManualPay}
           >
             Pay
           </button>
@@ -149,8 +170,7 @@ export default function TopUp() {
           {["Capitalist", "Nihaopay", "Payeer", "Payoneer"].map((name) => (
             <button
               key={name}
-              className="bg-green-50 border border-green-600 text-green-700
-                         rounded-full py-1 px-3 text-[12px] hover:bg-green-100"
+              className="bg-green-50 border border-green-600 text-green-700 rounded-full py-1 px-3 text-[12px] hover:bg-green-100"
             >
               {name}
             </button>

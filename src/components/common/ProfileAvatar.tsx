@@ -6,12 +6,18 @@ interface ProfileAvatarProps {
   onToggle: () => void;
 }
 
+const getInitials = (email: string) => {
+  if (!email) return "UN";
+  const name = email.split("@")[0];
+  return name.slice(0, 2).toUpperCase();
+};
+
 const ProfileAvatar: FC<ProfileAvatarProps> = ({
   email,
   imageUrl,
   onToggle,
 }) => {
-  const initials = email.slice(0, 2).toUpperCase();
+  const initials = getInitials(email);
   const hasImage = Boolean(imageUrl);
 
   return (
@@ -38,7 +44,7 @@ const ProfileAvatar: FC<ProfileAvatarProps> = ({
         className={`absolute -bottom-0 -right-0.5 w-4 h-4 rounded-full flex items-center justify-center text-[10px] text-white
         ${hasImage ? "bg-blue-500" : "bg-red-800"}`}
       >
-        {hasImage ? "✓" : "✕"}
+        {hasImage ? "\u2713" : "\u2715"}
       </span>
     </button>
   );

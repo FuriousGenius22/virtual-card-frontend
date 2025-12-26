@@ -9,11 +9,13 @@ const BALANCE_KEY = "total_account_balance";
 
 export default function Dashboard() {
   const [balance, setBalance] = useState<number>(0);
+  const [cardCharge, setCardCharge] = useState<number>(0);
 
   useEffect(() => {
-    const stored = Number(localStorage.getItem(BALANCE_KEY) || 0);
-    // eslint-disable-next-line react-hooks/set-state-in-effect
+    // Always use the global account for the test user
+    const stored = Number(localStorage.getItem("account") || 1000.0);
     setBalance(stored);
+    setCardCharge(Number(localStorage.getItem("card_charge") || 0));
   }, []);
 
   const [dollars, cents] = balance.toFixed(2).split(".");
@@ -72,8 +74,12 @@ export default function Dashboard() {
           </div>
 
           <div className="flex items-end gap-[2px] mt-[-6px]">
-            <span className="text-3xl sm:text-4xl md:text-[38px] font-semibold text-black">$0</span>
-            <span className="text-base sm:text-lg md:text-[18px] font-medium text-[#9CA3AF]">.00</span>
+            <span className="text-3xl sm:text-4xl md:text-[38px] font-semibold text-black">
+              ${cardCharge.toFixed(2).split(".")[0]}
+            </span>
+            <span className="text-base sm:text-lg md:text-[18px] font-medium text-[#9CA3AF]">
+              .{cardCharge.toFixed(2).split(".")[1]}
+            </span>
           </div>
 
           <Link
