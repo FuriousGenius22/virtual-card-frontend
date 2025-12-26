@@ -159,7 +159,6 @@
 //         </div>
 //       </div>
 //     </div>
-//   );
 // }
 
 
@@ -176,6 +175,7 @@ import {
   ArrowDown,
 } from "lucide-react";
 import BuyCard from "../components/common/BuyCard";
+import { showToast } from '../toast';
 
 // Sorting & Types
 const SortIcon = ({ column, sortKey, sortDir }: { column: SortKey, sortKey: SortKey, sortDir: SortDir }) => {
@@ -225,7 +225,12 @@ export default function NewCard() {
 
     myCards.push(card);
     localStorage.setItem('myCards', JSON.stringify(myCards));
-    navigate('/cards');
+    // Deduct $4 from main account
+    let account = Number(localStorage.getItem('account') || 1000.0);
+    account = Math.max(0, account - 4);
+    localStorage.setItem('account', account.toString());
+    showToast('A new card issued!', 'success');
+    setTimeout(() => navigate('/cards'), 1200);
   };
   // --- END CORE LOGIC ---
 
