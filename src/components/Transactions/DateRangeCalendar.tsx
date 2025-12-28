@@ -6,9 +6,9 @@ export default function SimpleCalendarModal({ onClose }: { onClose?: () => void 
   const [date, setDate] = useState(new Date());
 
   return (
-    <div className="bg-white rounded-2xl shadow-2xl border border-gray-100  max-w-lg p-8 z-50 absolute top-full left-0 flex flex-col gap-4">
+    <div className="bg-white rounded-2xl shadow-2xl border border-gray-100 max-w-lg p-8 z-50 absolute top-full left-0 flex flex-col gap-4">
       <Calendar
-        onChange={setDate}
+        onChange={(value) => setDate(value as Date)}
         value={date}
         className="w-full text-base"
         tileClassName={() => "py-2"}
