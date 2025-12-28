@@ -5,7 +5,7 @@ export default function Scheduled() {
   const [active, setActive] = useState(0);
 
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const underlineRef = useRef<HTMLDivElement>(null);
+  const underlineRef = useRef<HTMLDivElement | null>(null);
 
   useLayoutEffect(() => {
     const el = tabRefs.current[active];
@@ -30,7 +30,9 @@ export default function Scheduled() {
           {tabs.map((item, i) => (
             <button
               key={item}
-              ref={(el) => (tabRefs.current[i] = el)}
+              ref={(el) => {
+                tabRefs.current[i] = el;
+              }}
               onClick={() => setActive(i)}
               className={`transition-colors ${
                 active === i ? "text-[#111827]" : "hover:text-[#111827]"

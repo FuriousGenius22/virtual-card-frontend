@@ -5,21 +5,20 @@ import { MdOutlineCreditCard } from "react-icons/md";
 import { IoArrowForward } from "react-icons/io5";
 import { TbArrowsLeftRight } from "react-icons/tb";
 
-const BALANCE_KEY = "total_account_balance";
-
 export default function Dashboard() {
   const [balance, setBalance] = useState<number>(0);
   const [cardCharge, setCardCharge] = useState<number>(0);
-
+ 
   useEffect(() => {
     // Always use the global account for the test user
     const stored = Number(localStorage.getItem("account") || 1000.0);
-    setBalance(stored);
-    setCardCharge(Number(localStorage.getItem("card_charge") || 0));
+    // Defer setting state to avoid synchronous cascading renders
+    setTimeout(() => {
+      setBalance(stored);
+      setCardCharge(Number(localStorage.getItem("card_charge") || 0));
+    }, 0);
   }, []);
-
   const [dollars, cents] = balance.toFixed(2).split(".");
-
   return (
     <div className="w-full min-h-screen bg-white px-4 sm:px-6 md:px-8 lg:px-10 py-4 sm:py-6 md:py-8 select-none">
       <h1 className="text-2xl sm:text-3xl md:text-[32px] font-semibold text-[#0D0D0D] mb-4 sm:mb-6 md:mb-8">
