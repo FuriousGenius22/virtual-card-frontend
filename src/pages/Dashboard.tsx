@@ -1,6 +1,6 @@
 import { Button, Image } from '@nextui-org/react';
 import type { FC } from 'react';
-import React from 'react';
+
 import PageMeta from '../components/common/PageMeta';
 import AccountCard from '../components/common/AccountCard';
 import { Link } from 'react-router-dom';
