@@ -5,6 +5,7 @@ const User: React.FC = () => {
   return (
     <section
       className="
+        landing-user
         w-full
         min-h-[60vh]
         sm:min-h-[70vh]
@@ -26,8 +27,10 @@ const User: React.FC = () => {
       {/* Mobile: remove background image */}
       <style>{`
         @media (max-width: 767px) {
-          section {
-            background-image: none !important;
+          .landing-user {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
           }
         }
       `}</style>

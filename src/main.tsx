@@ -5,15 +5,18 @@ import App from "./App";
 import "./index.css";
 import { AppWrapper } from "./components/common/PageMeta";
 import { ThemeProvider as NextThemesProvider } from "next-themes";
+import { LanguageProvider } from "./context/LanguageContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <NextThemesProvider attribute="class" defaultTheme="light">
-      <NextUIProvider>
-        <AppWrapper>
-          <App />
-        </AppWrapper>
-      </NextUIProvider>
-    </NextThemesProvider>
+    <LanguageProvider>
+      <NextThemesProvider attribute="class" defaultTheme="light">
+        <NextUIProvider>
+          <AppWrapper>
+            <App />
+          </AppWrapper>
+        </NextUIProvider>
+      </NextThemesProvider>
+    </LanguageProvider>
   </React.StrictMode>
 );

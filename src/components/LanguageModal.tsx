@@ -4,9 +4,10 @@ import { Countries } from "../components/Countries";
 type ModalProps = {
   visible: boolean;
   onClose: () => void;
+  onSelect?: (country: { name: string; code: string }) => void;
 };
 
-const LanguageModal: React.FC<ModalProps> = ({ visible, onClose }) => {
+const LanguageModal: React.FC<ModalProps> = ({ visible, onClose, onSelect }) => {
   const [search, setSearch] = useState("");
 
   if (!visible) return null;
@@ -45,7 +46,10 @@ const LanguageModal: React.FC<ModalProps> = ({ visible, onClose }) => {
           {filtered.map((c) => (
             <button
               key={c.code}
-              onClick={onClose}
+              onClick={() => {
+                onSelect?.(c);
+                onClose();
+              }}
               className="w-full flex items-center gap-3 px-4 py-3 rounded-lg hover:bg-gray-100 text-left"
             >
               <img

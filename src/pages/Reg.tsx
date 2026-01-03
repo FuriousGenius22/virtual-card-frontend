@@ -5,6 +5,7 @@ import PasswordInput from "../components/common/PasswordInput";
 import LanguageModal from "../components/LanguageModal";
 import { signup, login } from "../services/mockAuth";
 import { useNavigate } from "react-router-dom";
+import { useLanguage } from "../context/LanguageContext";
 
 const Reg: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,6 +13,8 @@ const Reg: React.FC = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  const { countryCode, countryName, setCountry, t } = useLanguage();
 
   const navigate = useNavigate();
 
@@ -21,12 +24,12 @@ const Reg: React.FC = () => {
     setError(null);
 
     if (password.length < 8) {
-      setError("Password must be at least 8 characters");
+      setError(t("reg.passwordMin"));
       return;
     }
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match");
+      setError(t("reg.passwordMismatch"));
       return;
     }
 
@@ -35,7 +38,8 @@ const Reg: React.FC = () => {
       navigate("/dashboard");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.message || "Signup failed");
+      const msg = String(err?.message || "");
+      setError(msg || t("reg.signupFailed"));
     }
   };
 
@@ -48,13 +52,22 @@ const Reg: React.FC = () => {
       navigate("/dashboard");
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.message || "Invalid credentials");
+      const msg = String(err?.message || "");
+      if (msg === "Invalid credentials") {
+        setError(t("reg.invalidCredentials"));
+      } else {
+        setError(msg || t("reg.invalidCredentials"));
+      }
     }
   };
 
   return (
     <div className="relative min-h-screen w-full bg-[#F6F8FB] flex items-center justify-center p-4">
-      <LanguageModal visible={showModal} onClose={() => setShowModal(false)} />
+      <LanguageModal
+        visible={showModal}
+        onClose={() => setShowModal(false)}
+        onSelect={setCountry}
+      />
 
       <div className="w-full max-w-5xl min-h-[90vh] sm:h-[90vh] bg-white rounded-xl sm:rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-lg">
         {/* Left Image */}
@@ -72,11 +85,11 @@ const Reg: React.FC = () => {
               className="flex items-center gap-2 sm:gap-3 border rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-700 hover:bg-gray-50 transition"
             >
               <img
-                src="https://flagcdn.com/24x18/gb.png"
+                src={`https://flagcdn.com/24x18/${countryCode}.png`}
                 className="w-5 h-3 sm:w-6 sm:h-4 rounded-sm"
-                alt="English"
+                alt={countryName}
               />
-              <span className="hidden sm:inline">English</span>
+              <span className="hidden sm:inline">{t("reg.language")}</span>
               <span className="text-gray-500 text-xs sm:text-sm">⌄</span>
             </button>
           </div>
@@ -87,10 +100,10 @@ const Reg: React.FC = () => {
           </div>
 
           <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
-            Welcome 👋
+            {t("auth.welcome")}
           </h1>
           <p className="text-sm sm:text-base text-gray-500 mb-6 sm:mb-8">
-            Create your EPN account or sign in
+            {t("reg.subtitle")}
           </p>
 
           {/* FORM */}
@@ -100,12 +113,12 @@ const Reg: React.FC = () => {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
+              placeholder={t("common.email")}
               className="w-full rounded-lg border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
 
             <PasswordInput
-              placeholder="Create password (Minimum 8 characters)"
+              placeholder={t("reg.createPassword")}
               value={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
@@ -113,7 +126,7 @@ const Reg: React.FC = () => {
             />
 
             <PasswordInput
-              placeholder="Confirm password"
+              placeholder={t("reg.confirmPassword")}
               value={confirmPassword}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setConfirmPassword(e.target.value)
@@ -123,12 +136,12 @@ const Reg: React.FC = () => {
             <div className="text-xs text-gray-600 space-y-2">
               <label className="flex items-start gap-2">
                 <input type="checkbox" required className="mt-0.5 w-4 h-4" />
-                <span className="text-xs sm:text-sm">By signing up, you agree to our Terms of Service and Privacy Policy</span>
+                <span className="text-xs sm:text-sm">{t("reg.tos")}</span>
               </label>
 
               <label className="flex items-start gap-2">
                 <input type="checkbox" required className="mt-0.5 w-4 h-4" />
-                <span className="text-xs sm:text-sm">You confirm you are not a resident of restricted countries</span>
+                <span className="text-xs sm:text-sm">{t("reg.restricted")}</span>
               </label>
             </div>
 
@@ -138,7 +151,7 @@ const Reg: React.FC = () => {
               type="submit"
               className="w-full bg-black text-white rounded-lg py-2 font-medium hover:bg-gray-900 transition"
             >
-              Sign up
+              {t("reg.signUp")}
             </button>
 
             <button
@@ -146,12 +159,12 @@ const Reg: React.FC = () => {
               onClick={handleLogin}
               className="w-full border border-gray-300 rounded-lg py-2 font-medium hover:bg-gray-50 transition"
             >
-              Sign in
+              {t("reg.signIn")}
             </button>
 
             <div className="flex items-center gap-4 my-4">
               <div className="flex-1 h-px bg-gray-200" />
-              <span className="text-sm text-gray-400">or</span>
+              <span className="text-sm text-gray-400">{t("common.or")}</span>
               <div className="flex-1 h-px bg-gray-200" />
             </div>
 
@@ -164,12 +177,12 @@ const Reg: React.FC = () => {
                 alt="Google"
                 className="h-5 w-5"
               />
-              Continue with Google
+              {t("reg.continueWithGoogle")}
             </button>
           </form>
 
           <p className="text-center text-xs text-gray-400 mt-10">
-            © 2025 EPN, All rights reserved
+            {t("footer.rights")}
           </p>
         </div>
       </div>

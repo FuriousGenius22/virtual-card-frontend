@@ -5,6 +5,7 @@ const Hero: React.FC = () => {
   return (
     <section
       className="
+        landing-hero
         w-full
         min-h-[60vh]
         sm:min-h-[70vh]
@@ -26,8 +27,10 @@ const Hero: React.FC = () => {
       {/* Mobile: remove background image */}
       <style>{`
         @media (max-width: 767px) {
-          section {
-            background-image: none !important;
+          .landing-hero {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
           }
         }
       `}</style>

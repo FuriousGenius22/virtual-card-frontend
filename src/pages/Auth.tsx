@@ -5,12 +5,15 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import PasswordInput from "../components/common/PasswordInput";
 import LanguageModal from "../components/LanguageModal";
 import { login } from "../services/mockAuth";
+import { useLanguage } from "../context/LanguageContext";
 
 const Auth: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  const { countryCode, countryName, setCountry, t } = useLanguage();
 
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -25,14 +28,23 @@ const Auth: React.FC = () => {
       navigate(redirectTo);
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (err: any) {
-      setError(err.message || "Login failed");
+      const msg = String(err?.message || "");
+      if (msg === "Invalid credentials") {
+        setError(t("auth.invalidCredentials"));
+      } else {
+        setError(msg || t("auth.loginFailed"));
+      }
     }
   };
 
   return (
     <div className="relative min-h-screen w-full bg-[#F6F8FB] flex items-center justify-center p-4">
       {/* Language Modal */}
-      <LanguageModal visible={showModal} onClose={() => setShowModal(false)} />
+      <LanguageModal
+        visible={showModal}
+        onClose={() => setShowModal(false)}
+        onSelect={setCountry}
+      />
 
       {/* Main Card */}
       <div className="w-full max-w-5xl min-h-[90vh] sm:h-[90vh] bg-white rounded-xl sm:rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-lg">
@@ -51,11 +63,11 @@ const Auth: React.FC = () => {
               className="flex items-center gap-2 sm:gap-3 border rounded-lg sm:rounded-xl px-3 sm:px-4 py-1.5 sm:py-2 text-xs sm:text-sm text-gray-700 hover:bg-gray-50 transition"
             >
               <img
-                src="https://flagcdn.com/24x18/gb.png"
+                src={`https://flagcdn.com/24x18/${countryCode}.png`}
                 className="w-5 h-3 sm:w-6 sm:h-4 rounded-sm"
-                alt="English"
+                alt={countryName}
               />
-              <span className="hidden sm:inline">English</span>
+              <span className="hidden sm:inline">{t("auth.language")}</span>
               <span className="text-gray-500 text-xs sm:text-sm">⌄</span>
             </button>
           </div>
@@ -66,10 +78,10 @@ const Auth: React.FC = () => {
           </div>
 
           <h1 className="text-xl sm:text-2xl font-semibold text-gray-900 mb-2">
-            Welcome 👋
+            {t("auth.welcome")}
           </h1>
           <p className="text-sm sm:text-base text-gray-500 mb-6 sm:mb-8">
-            Login to your EPN account or create a new one
+            {t("auth.subtitle")}
           </p>
 
           {/* FORM */}
@@ -78,7 +90,7 @@ const Auth: React.FC = () => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="Email"
+              placeholder={t("common.email")}
               required
               className="w-full rounded-lg border border-gray-200 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
@@ -88,7 +100,7 @@ const Auth: React.FC = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
-              placeholder="Password"
+              placeholder={t("common.password")}
             />
 
             {error && (
@@ -102,11 +114,11 @@ const Auth: React.FC = () => {
                   defaultChecked
                   className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4"
                 />
-                Remember me
+                {t("auth.rememberMe")}
               </label>
 
               <Link to="/auth.epn/reset-password" className="text-blue-600 hover:underline text-xs sm:text-sm">
-                Forgot password?
+                {t("auth.forgotPassword")}
               </Link>
             </div>
 
@@ -114,7 +126,7 @@ const Auth: React.FC = () => {
               type="submit"
               className="w-full bg-black text-white rounded-lg py-2 font-medium hover:bg-gray-900 transition"
             >
-              Log in
+              {t("auth.login")}
             </button>
 
             <Link to="/reg.epn">
@@ -122,13 +134,13 @@ const Auth: React.FC = () => {
                 type="button"
                 className="w-full border border-gray-300 rounded-lg py-2 font-medium hover:bg-gray-50 transition mt-[2vh]"
               >
-                Sign up
+                {t("auth.signUp")}
               </button>
             </Link>
 
             <div className="flex items-center gap-4 my-4">
               <div className="flex-1 h-px bg-gray-200" />
-              <span className="text-sm text-gray-400">or</span>
+              <span className="text-sm text-gray-400">{t("common.or")}</span>
               <div className="flex-1 h-px bg-gray-200" />
             </div>
 
@@ -141,12 +153,12 @@ const Auth: React.FC = () => {
                 alt="Google"
                 className="h-5 w-5"
               />
-              Log in with Google
+              {t("auth.loginWithGoogle")}
             </button>
           </form>
 
           <p className="text-center text-xs text-gray-400 mt-10">
-            © 2025 EPN, All rights reserved
+            {t("footer.rights")}
           </p>
         </div>
       </div>
