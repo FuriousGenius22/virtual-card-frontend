@@ -65,6 +65,30 @@ export function login(email: string, password: string) {
   return user;
 }
 
+export function loginWithGoogle() {
+  // Mock Google login - create a user with Google email
+  const googleEmail = "googleuser@gmail.com";
+  const googleUser = {
+    id: crypto.randomUUID(),
+    email: googleEmail,
+    password: "google-auth-token",
+  };
+
+  // Set global account for this user
+  account = 1000.0;
+  localStorage.setItem("account", account.toString());
+
+  const users = getUsers();
+  const existingUser = users.find(u => u.email === googleEmail);
+  if (!existingUser) {
+    users.push(googleUser);
+    saveUsers(users);
+  }
+
+  localStorage.setItem(TOKEN_KEY, "mock-google-jwt-token");
+  return existingUser || googleUser;
+}
+
 export function logout() {
   localStorage.removeItem(TOKEN_KEY);
 }

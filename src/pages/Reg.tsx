@@ -3,7 +3,7 @@ import authImage from "../assets/auth.png";
 import logo from "../assets/logo.svg";
 import PasswordInput from "../components/common/PasswordInput";
 import LanguageModal from "../components/LanguageModal";
-import { signup, login } from "../services/mockAuth";
+import { signup, login, loginWithGoogle } from "../services/mockAuth";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 
@@ -58,6 +58,18 @@ const Reg: React.FC = () => {
       } else {
         setError(msg || t("reg.invalidCredentials"));
       }
+    }
+  };
+
+  // GOOGLE LOGIN/SIGNUP
+  const handleGoogleAuth = () => {
+    setError(null);
+    try {
+      loginWithGoogle();
+      navigate("/dashboard");
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setError(err?.message || t("reg.signupFailed"));
     }
   };
 
@@ -170,6 +182,7 @@ const Reg: React.FC = () => {
 
             <button
               type="button"
+              onClick={handleGoogleAuth}
               className="w-full border border-gray-300 rounded-lg py-2 font-medium flex items-center justify-center gap-3 hover:bg-gray-50 transition"
             >
               <img

@@ -4,7 +4,7 @@ import logo from "../assets/logo.svg";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import PasswordInput from "../components/common/PasswordInput";
 import LanguageModal from "../components/LanguageModal";
-import { login } from "../services/mockAuth";
+import { login, loginWithGoogle } from "../services/mockAuth";
 import { useLanguage } from "../context/LanguageContext";
 
 const Auth: React.FC = () => {
@@ -34,6 +34,17 @@ const Auth: React.FC = () => {
       } else {
         setError(msg || t("auth.loginFailed"));
       }
+    }
+  };
+
+  const handleGoogleLogin = () => {
+    setError(null);
+    try {
+      loginWithGoogle();
+      navigate(redirectTo);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (err: any) {
+      setError(err?.message || t("auth.loginFailed"));
     }
   };
 
@@ -146,6 +157,7 @@ const Auth: React.FC = () => {
 
             <button
               type="button"
+              onClick={handleGoogleLogin}
               className="w-full border border-gray-300 rounded-lg py-2 font-medium flex items-center justify-center gap-3 hover:bg-gray-50 transition"
             >
               <img
