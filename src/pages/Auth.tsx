@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import authImage from "../assets/auth.png";
 import logo from "../assets/logo.svg";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import PasswordInput from "../components/common/PasswordInput";
 import LanguageModal from "../components/LanguageModal";
-import { login, loginWithGoogle } from "../services/mockAuth";
+import { loginWithGoogle } from "../services/mockAuth";
 import { useLanguage } from "../context/LanguageContext";
-
+import { useAuth } from "../context/AuthContext";
 import { ChevronDown } from "lucide-react";
 
 const Auth: React.FC = () => {
@@ -16,26 +16,18 @@ const Auth: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const { countryCode, countryName, setCountry, t } = useLanguage();
-
-  const navigate = useNavigate();
-  const [searchParams] = useSearchParams();
-  const redirectTo = searchParams.get("redirect") || "/dashboard";
+  const { login } = useAuth();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
     try {
-      login(email, password);
-      navigate(redirectTo);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await login(email, password);
+      // On successful login, RedirectIfAuth will automatically
+      // redirect to the dashboard.
     } catch (err: any) {
-      const msg = String(err?.message || "");
-      if (msg === "Invalid credentials") {
-        setError(t("auth.invalidCredentials"));
-      } else {
-        setError(msg || t("auth.loginFailed"));
-      }
+      setError(err.message || 'Login failed');
     }
   };
 
@@ -43,8 +35,8 @@ const Auth: React.FC = () => {
     setError(null);
     try {
       loginWithGoogle();
-      navigate(redirectTo);
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      // On successful login, RedirectIfAuth will automatically
+      // redirect to the dashboard.
     } catch (err: any) {
       setError(err?.message || t("auth.loginFailed"));
     }
@@ -58,6 +50,7 @@ const Auth: React.FC = () => {
         onClose={() => setShowModal(false)}
         onSelect={setCountry}
       />
+      {/* ... rest of the component is unchanged */}
 
       {/* Main Card */}
       <div className="w-full max-w-5xl min-h-[90vh] sm:h-[90vh] bg-white rounded-xl sm:rounded-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 shadow-lg">

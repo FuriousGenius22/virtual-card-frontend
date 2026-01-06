@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import authImage from "../assets/auth.png";
 import logo from "../assets/logo.svg";
 import PasswordInput from "../components/common/PasswordInput";
 import LanguageModal from "../components/LanguageModal";
-import { signup, login, loginWithGoogle } from "../services/mockAuth";
+import { loginWithGoogle } from "../services/mockAuth";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
-
+import { useAuth } from "../context/AuthContext";
 import { ChevronDown } from "lucide-react";
 
 const Reg: React.FC = () => {
@@ -17,11 +17,17 @@ const Reg: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   const { countryCode, countryName, setCountry, t } = useLanguage();
-
+  const { signup, login, user } = useAuth();
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (user) {
+      navigate("/dashboard");
+    }
+  }, [user, navigate]);
+
   // SIGN UP
-  const handleSignup = (e: React.FormEvent) => {
+  const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
 
@@ -36,30 +42,22 @@ const Reg: React.FC = () => {
     }
 
     try {
-      signup(email, password);
-      navigate("/dashboard");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await signup(email, password);
+      // Navigation is handled by useEffect
     } catch (err: any) {
-      const msg = String(err?.message || "");
-      setError(msg || t("reg.signupFailed"));
+      setError(err.message || t("reg.signupFailed"));
     }
   };
 
   // SIGN IN
-  const handleLogin = () => {
+  const handleLogin = async () => {
     setError(null);
 
     try {
-      login(email, password);
-      navigate("/dashboard");
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await login(email, password);
+      // Navigation is handled by useEffect
     } catch (err: any) {
-      const msg = String(err?.message || "");
-      if (msg === "Invalid credentials") {
-        setError(t("reg.invalidCredentials"));
-      } else {
-        setError(msg || t("reg.invalidCredentials"));
-      }
+      setError(err.message || t("reg.invalidCredentials"));
     }
   };
 

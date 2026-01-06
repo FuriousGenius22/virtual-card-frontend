@@ -3,23 +3,17 @@ import { useSiderbar } from "../../context/SiderbarContext";
 import { IoIosArrowForward } from "react-icons/io";
 import ProfileAvatar from "../common/ProfileAvatar";
 import ProfileDropdown from "../common/ProfileDropdown";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
-
-type User = {
-  id: string;
-  email: string;
-  password: string;
-};
-
-const USERS_KEY = "someone";
+import { useAuth } from "../../context/AuthContext";
 
 const AppHeader: React.FC = () => {
   const { toggleSiderbar } = useSiderbar();
   const [open, setOpen] = useState(false);
+  const { user } = useAuth();
 
-  // TODO: Get logged-in user's email from backend/auth context
-  const email = "user@example.com"; // Placeholder
+  // The user should always be defined here because this component is rendered inside a ProtectedRoute
+  const email = user?.email || "";
 
   return (
     <div className="flex items-center justify-between h-14 sm:h-16 gap-2 sm:gap-4 px-3 sm:px-4 md:px-6 bg-white">

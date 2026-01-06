@@ -1,5 +1,5 @@
 import { type FC, useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   Send,
   ShieldCheck,
@@ -9,6 +9,7 @@ import {
   Languages,
   LogOut,
 } from "lucide-react";
+import { logout } from "../../services/mockAuth";
 
 interface ProfileDropdownProps {
   email: string;
@@ -30,6 +31,7 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
   const ref = useRef<HTMLDivElement>(null);
   const initials = getInitials(email);
   const hasImage = Boolean(imageUrl);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -40,6 +42,15 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
     document.addEventListener("mousedown", handler);
     return () => document.removeEventListener("mousedown", handler);
   }, [onClose]);
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+          navigate("/");
+          window.location.reload();
+        } catch (error) {      console.error("Failed to log out", error);
+    }
+  };
 
   return (
     <div
@@ -105,7 +116,12 @@ const ProfileDropdown: FC<ProfileDropdownProps> = ({
         <Item icon={<Languages size={18} />} label="Language" right />
         <Divider />
 
-        <Item icon={<LogOut size={18} />} label="Exit account" danger />
+        <Item
+          icon={<LogOut size={18} />}
+          label="Exit account"
+          danger
+          onClick={handleLogout}
+        />
       </ul>
     </div>
   );

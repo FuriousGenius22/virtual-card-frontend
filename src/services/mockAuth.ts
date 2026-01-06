@@ -1,18 +1,39 @@
 
 // All mock/localStorage logic removed. Replace with real API calls when backend is ready.
 
-// TODO: Implement real signup API call
 export async function signup(email: string, password: string) {
-  // Example placeholder
-  // await fetch('/api/signup', { method: 'POST', body: JSON.stringify({ email, password }) });
-  throw new Error('Signup not implemented. Connect to backend.');
+  const res = await fetch('/api/auth/signup', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
+  if (!res.ok) {
+    if (res.status === 409) {
+      throw new Error('Email already exists. Please try to log in.');
+    }
+    const errorData = await res.json();
+    throw new Error(errorData.errors?.email || errorData.errors?.password || 'Signup failed');
+  }
+  return await res.json();
 }
 
-// TODO: Implement real login API call
 export async function login(email: string, password: string) {
-  // Example placeholder
-  // await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
-  throw new Error('Login not implemented. Connect to backend.');
+  const res = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email, password }),
+  });
+  if (!res.ok) {
+    if (res.status === 404) {
+      throw new Error('User not found. Please sign up.');
+    }
+    if (res.status === 401) {
+      throw new Error('Incorrect password.');
+    }
+    const errorData = await res.json();
+    throw new Error(errorData.message || 'Login failed');
+  }
+  return await res.json();
 }
 
 // TODO: Implement real Google login API call
@@ -22,11 +43,10 @@ export async function loginWithGoogle() {
   throw new Error('Google login not implemented. Connect to backend.');
 }
 
-export function logout() {
-  // TODO: Implement real logout logic
+export async function logout() {
+  await fetch('/api/auth/logout', { method: 'POST' });
 }
 
 export function isAuthenticated() {
-  // TODO: Implement real auth check
-  return false;
+  return document.cookie.includes('authToken');
 }
