@@ -1,3 +1,4 @@
+import { ChevronDown } from "lucide-react";
 import React, { useState } from "react";
 import authImage from "../assets/auth.png";
 import logo from "../assets/logo.svg";
@@ -35,7 +36,7 @@ const ResetPassword: React.FC = () => {
                 alt="English"
               />
               English
-              <span className="text-gray-500">⌄</span>
+              <ChevronDown size={16} className="text-gray-500" />
             </button>
           </div>
 

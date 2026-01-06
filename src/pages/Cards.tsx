@@ -80,12 +80,8 @@ export default function Cards() {
   const [boughtCards, setBoughtCards] = useState<CardRow[]>([]);
 
   useEffect(() => {
-    // Defer setting state to avoid synchronous cascading renders
-    const timer = setTimeout(() => {
-      const stored = localStorage.getItem('myCards');
-      if (stored) setBoughtCards(JSON.parse(stored));
-    }, 0); // Using setTimeout with 0ms to defer execution
-    return () => clearTimeout(timer);
+    // TODO: Fetch bought cards from backend
+    setBoughtCards([]); // Placeholder
   }, []);
 
   return (

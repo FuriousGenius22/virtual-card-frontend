@@ -18,17 +18,8 @@ const AppHeader: React.FC = () => {
   const { toggleSiderbar } = useSiderbar();
   const [open, setOpen] = useState(false);
 
-  // ✅ Get logged-in user's email from localStorage
-  const email = useMemo(() => {
-    try {
-      const users: User[] = JSON.parse(
-        localStorage.getItem(USERS_KEY) || "[]"
-      );
-      return users.length ? users[users.length - 1].email : "unknown@user";
-    } catch {
-      return "unknown@user";
-    }
-  }, []);
+  // TODO: Get logged-in user's email from backend/auth context
+  const email = "user@example.com"; // Placeholder
 
   return (
     <div className="flex items-center justify-between h-14 sm:h-16 gap-2 sm:gap-4 px-3 sm:px-4 md:px-6 bg-white">

@@ -512,14 +512,8 @@ function safeParseStoredLanguage(value: string | null): LanguageState | null {
 const LanguageContext = createContext<LanguageContextValue | undefined>(undefined);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [state, setState] = useState<LanguageState>(() => {
-    const stored = safeParseStoredLanguage(localStorage.getItem(STORAGE_KEY));
-    return stored ?? DEFAULT_LANGUAGE;
-  });
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-  }, [state]);
+  const [state, setState] = useState<LanguageState>(DEFAULT_LANGUAGE);
+  // TODO: Persist language selection to backend or user profile if needed
 
   useEffect(() => {
     document.documentElement.lang = state.locale;

@@ -10,9 +10,9 @@ const Overview = () => {
   const [balance, setBalance] = useState<number>(0);
   const [cardCharge, setCardCharge] = useState<number>(0);
   useEffect(() => {
-    const stored = Number(localStorage.getItem("account") || 1000.0);
-    setBalance(stored);
-    setCardCharge(Number(localStorage.getItem("card_charge") || 0));
+    // TODO: Fetch balance and cardCharge from backend
+    setBalance(0); // Placeholder
+    setCardCharge(0); // Placeholder
   }, []);
   const [dollars, cents] = balance.toFixed(2).split(".");
   const [cardDollars, cardCents] = cardCharge.toFixed(2).split(".");

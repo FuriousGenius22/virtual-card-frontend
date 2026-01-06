@@ -8,11 +8,12 @@ import { showToast } from '../toast';
 export default function TopUp() {
   const [amount, setAmount] = useState<number | string>("1000");
 
-  // Helper to get/set account and card_charge
-  const getAccount = () => Number(localStorage.getItem("account") || 1000.0);
-  const getCardCharge = () => Number(localStorage.getItem("card_charge") || 0);
-  const setAccount = (val: number) => localStorage.setItem("account", val.toString());
-  const setCardCharge = (val: number) => localStorage.setItem("card_charge", val.toString());
+
+  // TODO: Replace with backend API calls
+  const getAccount = () => 0; // Placeholder
+  const getCardCharge = () => 0; // Placeholder
+  const setAccount = (val: number) => {}; // Placeholder
+  const setCardCharge = (val: number) => {}; // Placeholder
 
   // Manual payment handler
   const handleManualPay = () => {

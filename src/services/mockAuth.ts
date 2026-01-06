@@ -1,98 +1,32 @@
-type User = {
-  id: string;
-  email: string;
-  password: string;
-};
 
-const USERS_KEY = "some";
-const TOKEN_KEY = "123456789";
+// All mock/localStorage logic removed. Replace with real API calls when backend is ready.
 
-function getUsers(): User[] {
-  return JSON.parse(localStorage.getItem(USERS_KEY) || "[]");
+// TODO: Implement real signup API call
+export async function signup(email: string, password: string) {
+  // Example placeholder
+  // await fetch('/api/signup', { method: 'POST', body: JSON.stringify({ email, password }) });
+  throw new Error('Signup not implemented. Connect to backend.');
 }
 
-function saveUsers(users: User[]) {
-  localStorage.setItem(USERS_KEY, JSON.stringify(users));
+// TODO: Implement real login API call
+export async function login(email: string, password: string) {
+  // Example placeholder
+  // await fetch('/api/login', { method: 'POST', body: JSON.stringify({ email, password }) });
+  throw new Error('Login not implemented. Connect to backend.');
 }
 
-// GLOBAL ACCOUNT VARIABLE
-export let account: number | undefined = undefined;
-
-export function signup(email: string, password: string) {
-  // Only allow the test email
-  if (email !== "anybodypass@gmail.com") {
-    throw new Error("Only 'anybodypass@gmail.com' is allowed for signup");
-  }
-  if (password !== "123456789") {
-    throw new Error("Password must be '123456789'");
-  }
-  // Set global account for this user
-  account = 1000.0;
-  localStorage.setItem("account", account.toString());
-
-  const users = getUsers();
-  if (users.find(u => u.email === email)) {
-    throw new Error("User already exists");
-  }
-  const user = {
-    id: crypto.randomUUID(),
-    email,
-    password,
-  };
-  users.push(user);
-  saveUsers(users);
-  localStorage.setItem(TOKEN_KEY, "mock-jwt-token");
-  return user;
-}
-
-export function login(email: string, password: string) {
-  // Only allow the test email
-  if (email !== "anybodypass@gmail.com" || password !== "123456789") {
-    throw new Error("Invalid credentials");
-  }
-  // Set global account for this user
-  account = 1000.0;
-  localStorage.setItem("account", account.toString());
-
-  const users = getUsers();
-  const user = users.find(
-    u => u.email === email && u.password === password
-  );
-  if (!user) {
-    throw new Error("Invalid credentials");
-  }
-  localStorage.setItem(TOKEN_KEY, "mock-jwt-token");
-  return user;
-}
-
-export function loginWithGoogle() {
-  // Mock Google login - create a user with Google email
-  const googleEmail = "googleuser@gmail.com";
-  const googleUser = {
-    id: crypto.randomUUID(),
-    email: googleEmail,
-    password: "google-auth-token",
-  };
-
-  // Set global account for this user
-  account = 1000.0;
-  localStorage.setItem("account", account.toString());
-
-  const users = getUsers();
-  const existingUser = users.find(u => u.email === googleEmail);
-  if (!existingUser) {
-    users.push(googleUser);
-    saveUsers(users);
-  }
-
-  localStorage.setItem(TOKEN_KEY, "mock-google-jwt-token");
-  return existingUser || googleUser;
+// TODO: Implement real Google login API call
+export async function loginWithGoogle() {
+  // Example placeholder
+  // await fetch('/api/login/google', { method: 'POST' });
+  throw new Error('Google login not implemented. Connect to backend.');
 }
 
 export function logout() {
-  localStorage.removeItem(TOKEN_KEY);
+  // TODO: Implement real logout logic
 }
 
 export function isAuthenticated() {
-  return Boolean(localStorage.getItem(TOKEN_KEY));
+  // TODO: Implement real auth check
+  return false;
 }

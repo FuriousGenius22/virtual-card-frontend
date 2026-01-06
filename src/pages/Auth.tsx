@@ -7,6 +7,8 @@ import LanguageModal from "../components/LanguageModal";
 import { login, loginWithGoogle } from "../services/mockAuth";
 import { useLanguage } from "../context/LanguageContext";
 
+import { ChevronDown } from "lucide-react";
+
 const Auth: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
@@ -79,7 +81,7 @@ const Auth: React.FC = () => {
                 alt={countryName}
               />
               <span className="hidden sm:inline">{t("auth.language")}</span>
-              <span className="text-gray-500 text-xs sm:text-sm">⌄</span>
+              <ChevronDown size={16} className="text-gray-500" />
             </button>
           </div>
 

@@ -218,18 +218,10 @@ export default function NewCard() {
   ];
 
   // --- CORE LOGIC ADDED --- 
+  // TODO: Implement card purchase logic with backend
   const handleBuy = (card: CardRow) => {
-    const stored = localStorage.getItem('myCards');
-    let myCards: CardRow[] = [];
-    if (stored) myCards = JSON.parse(stored);
-
-    myCards.push(card);
-    localStorage.setItem('myCards', JSON.stringify(myCards));
-    // Deduct $4 from main account
-    let account = Number(localStorage.getItem('account') || 1000.0);
-    account = Math.max(0, account - 4);
-    localStorage.setItem('account', account.toString());
-    showToast('A new card issued!', 'success');
+    // Example: await fetch('/api/cards', { method: 'POST', body: JSON.stringify(card) })
+    showToast('A new card issued! (mock)', 'success');
     setTimeout(() => navigate('/cards'), 1200);
   };
   // --- END CORE LOGIC ---

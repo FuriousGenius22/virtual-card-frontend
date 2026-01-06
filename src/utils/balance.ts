@@ -1,9 +1,10 @@
-const BALANCE_KEY = "total_account_balance";
 
+// TODO: Replace with backend API calls
 export function getBalance(): number {
-  return Number(localStorage.getItem(BALANCE_KEY) || 0);
+  // Placeholder: return 0 or fetch from backend
+  return 0;
 }
 
 export function setBalance(amount: number) {
-  localStorage.setItem(BALANCE_KEY, amount.toString());
+  // Placeholder: send to backend
 }

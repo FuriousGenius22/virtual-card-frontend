@@ -7,6 +7,8 @@ import { signup, login, loginWithGoogle } from "../services/mockAuth";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "../context/LanguageContext";
 
+import { ChevronDown } from "lucide-react";
+
 const Reg: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const [email, setEmail] = useState("");
@@ -102,7 +104,7 @@ const Reg: React.FC = () => {
                 alt={countryName}
               />
               <span className="hidden sm:inline">{t("reg.language")}</span>
-              <span className="text-gray-500 text-xs sm:text-sm">⌄</span>
+              <ChevronDown size={16} className="text-gray-500" />
             </button>
           </div>
 

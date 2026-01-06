@@ -10,12 +10,10 @@ export default function Dashboard() {
   const [cardCharge, setCardCharge] = useState<number>(0);
  
   useEffect(() => {
-    // Always use the global account for the test user
-    const stored = Number(localStorage.getItem("account") || 1000.0);
-    // Defer setting state to avoid synchronous cascading renders
+    // TODO: Fetch balance and cardCharge from backend
     setTimeout(() => {
-      setBalance(stored);
-      setCardCharge(Number(localStorage.getItem("card_charge") || 0));
+      setBalance(0); // Placeholder
+      setCardCharge(0); // Placeholder
     }, 0);
   }, []);
   const [dollars, cents] = balance.toFixed(2).split(".");
